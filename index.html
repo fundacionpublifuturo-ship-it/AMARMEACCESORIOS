@@ -383,7 +383,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 .modal-box::-webkit-scrollbar{width:6px}
 .modal-box::-webkit-scrollbar-thumb{background:var(--beige-2);border-radius:6px}
 .md-close{position:absolute;top:14px;right:14px;z-index:5;background:rgba(252,248,240,.94);backdrop-filter:blur(6px);box-shadow:var(--sh-sm)}
-.pd{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:100%}
+.pd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:100%;max-width:100%}
+.pd>*{min-width:0}
 .pd-media{background:#FBF4E6;padding:26px;display:flex;flex-direction:column;gap:14px}
 .pd-main{position:relative;aspect-ratio:1;overflow:hidden;border-radius:3px;background:#F3EBDF;cursor:zoom-in}
 .pd-main img{width:100%;height:100%;object-fit:cover;transition:transform .35s var(--ease)}
@@ -573,7 +574,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 
 /* ---------- v2: SECCIÓN PET LOVERS ---------- */
 .pet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
-.pet-band{background:linear-gradient(150deg,#F3EADC,#EBE0CD 60%);position:relative;overflow:hidden}
+.pet-band{background:linear-gradient(150deg,var(--nude),var(--beige) 60%);position:relative;overflow:hidden;max-width:100vw}
 .pet-band::before{content:'';position:absolute;width:620px;height:620px;left:-200px;bottom:-260px;background:radial-gradient(circle,rgba(181,114,60,.16),transparent 62%)}
 
 /* ---------- RESPONSIVE ---------- */
@@ -625,7 +626,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   .card-price{font-size:16px}
   .card-cta button{padding:11px;font-size:10px}
   .hero{min-height:auto;padding-bottom:40px}
-  .hero-grid{padding:34px 0 24px;gap:22px;grid-template-columns:1fr}
+  .hero-grid{padding:34px 20px 24px;gap:22px;grid-template-columns:1fr}
   .hero h1{font-size:clamp(38px,11vw,54px);line-height:1.12}
   .hero p.lead{font-size:15.5px;margin:18px 0 26px}
   .hero-cta{gap:10px}
@@ -683,6 +684,25 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   .mob-filter-bar{gap:8px}
   .cat-topbar{flex-direction:column;align-items:stretch}
   .cat-topbar .sel{width:100%}
+  .pd-actions .btn{min-width:0!important}
+  .rail>*{min-width:0}
+  .pet-band::before{width:340px;height:340px;left:-120px;bottom:-160px}
+  .hero::before{width:500px;height:500px;right:-160px}
+  section,.hero{max-width:100vw;overflow:hidden}
+  .cat-layout{grid-template-columns:1fr}
+  .grid-p,.rail,.chips,.tabs,.cat-topbar,.hero-cta,.pd-attrs,.pd-mini{max-width:100%}
+  img,svg,video,canvas{max-width:100%;height:auto}
+  input,textarea,select{max-width:100%}
+  .modal{padding:0!important}
+  .modal-box{width:100vw!important;max-width:100vw!important;height:100%;max-height:100dvh;border-radius:0;overflow-x:hidden}
+  .pd{grid-template-columns:minmax(0,1fr)!important;width:100%;min-width:0}
+  .pd>*{min-width:0!important}
+  .pd-media,.pd-info,.rel{width:100%;box-sizing:border-box}
+  .pd-main{width:100%}
+  .pd-attrs{grid-template-columns:1fr 1fr}
+  .pd *{max-width:100%;box-sizing:border-box}
+  .co-modal .modal-box,#coModal .modal-box,#szModal .modal-box{width:100vw!important;max-width:100vw!important}
+  .rel-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:400px){
   .grid-p{grid-template-columns:1fr 1fr;gap:10px}
@@ -693,6 +713,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   .hero-social b{font-size:20px}
   .pet-grid{grid-template-columns:1fr}
   .card-name{font-size:13px}
+  .pd-attrs{grid-template-columns:1fr}
+  .hero-grid{padding-left:16px;padding-right:16px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 
@@ -760,7 +782,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 #adminOverlay .kpi.good b{color:var(--ok)}
 #adminOverlay .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 #adminOverlay .bar input[type=text], #adminOverlay .bar select, #adminOverlay .bar input[type=date]{padding:10px 12px;border:1px solid var(--line);border-radius:2px;background:#fff;outline:none}
-#adminOverlay .bar input[type=text]{flex:1;min-width:200px}
+#adminOverlay .bar input[type=text]{flex:1;min-width:120px}
 #adminOverlay table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:3px;overflow:hidden}
 #adminOverlay th{text-align:left;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:500;padding:12px 10px;background:var(--arena);border-bottom:1px solid var(--line)}
 #adminOverlay td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:14px}
