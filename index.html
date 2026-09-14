@@ -20,30 +20,34 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230A0A0A'/%3E%3Cpath d='M32 8c5 12 7 20 7 27 0 8-4 13-7 17-3-4-7-9-7-17 0-7 2-15 7-27z' fill='%23D9B978'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
 /* ============================================================
    AMARME ACCESORIOS — SISTEMA DE DISEÑO
    ============================================================ */
 :root{
-  /* Fondos claros cálidos (arena / nude / crema) */
-  --cream:#E4DAD0; --arena:#D8CCC0; --beige:#CDBFB2; --beige-2:#B8AAA1; --nude:#EAE1D8;
-  /* Café suave para secciones de contraste (NO oscuro pesado) */
-  --noir:#4A3B2A; --noir-2:#544430; --noir-3:#5E4D37; --noir-4:#6B583F;
-  /* Dorado champán del logo */
-  --gold:#B79B6A; --gold-lt:#CDB488; --gold-dp:#8F7443; --gold-pale:#F3E7DE; --champan:#D8C6A3;
+  /* 3 colores base de la referencia AMARME */
+  --cream:#FBF3E6;   /* blanco crema */
+  --arena:#F1E7D5;   /* intermedio claro */
+  --beige:#E5D6BF;   /* beige claro */
+  --beige-2:#DFCBB0; /* café clarito */
+  --nude:#F6EEDF;
+  /* Café SUAVE para secciones de acento (no oscuro) */
+  --noir:#7A6A52; --noir-2:#8A7A60; --noir-3:#6E5E48; --noir-4:#5E4F3B;
+  /* Dorado del logo */
+  --gold:#C0A468; --gold-lt:#D6BE8E; --gold-dp:#9A7D45; --gold-pale:#F3E7DE; --champan:#D8C6A3;
   /* Tierra complementarios */
-  --terra:#B5723C; --terra-dp:#96592C; --camel:#D9C4A3; --cafe:#5C4632;
-  /* Texto café oscuro cálido */
-  --ink:#2A2013; --ink-2:#5E4E38; --line:#CDBA9A; --line-dk:#B8A277;
-  --grad-gold:linear-gradient(105deg,#B0965E 0%,#D9C39A 30%,#C7AF80 50%,#E7D8BC 70%,#B7A06A 100%);
-  --ff-display:'Bodoni Moda','Cormorant Garamond',Georgia,serif;
+  --terra:#B5814C; --terra-dp:#93632F; --camel:#DBC7A6; --cafe:#5C4632;
+  /* Texto café oscuro cálido (buen contraste sobre crema/beige) */
+  --ink:#3A2C1B; --ink-2:#6E5B44; --line:#DECBAF; --line-dk:#CBB894;
+  --grad-gold:linear-gradient(105deg,#9A7D45 0%,#D6BE8E 30%,#C0A468 50%,#EEDFC0 70%,#A88A4F 100%);
+  --ff-display:'Playfair Display','Cormorant Garamond',Georgia,serif;
   --ff-serif:'Cormorant Garamond',Georgia,serif;
   --ff-sans:'Jost',-apple-system,'Segoe UI',sans-serif;
-  --sh-sm:0 2px 12px rgba(90,70,50,.07);
-  --sh-md:0 12px 38px rgba(90,70,50,.12);
-  --sh-lg:0 26px 70px rgba(74,59,42,.24);
+  --sh-sm:0 2px 12px rgba(120,95,60,.06);
+  --sh-md:0 12px 34px rgba(120,95,60,.10);
+  --sh-lg:0 26px 66px rgba(90,70,50,.20);
   --ease:cubic-bezier(.22,.8,.28,1);
   --nav-h:74px;
 }
@@ -56,15 +60,15 @@ img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit;font-size:15px;color:inherit}
 a{color:inherit;text-decoration:none}
-h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margin:0;letter-spacing:.01em}
-.sec-head h2,.hero h1{font-weight:500;letter-spacing:.02em}
+h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margin:0;letter-spacing:0}
+.sec-head h2,.hero h1{font-weight:600;letter-spacing:.005em}
 .wrap{width:100%;max-width:1280px;margin:0 auto;padding:0 20px}
 .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;font-weight:600;color:#8A6A30}
-.eyebrow.on-dark{color:var(--gold)}
+.eyebrow.on-dark{color:var(--gold-dp)}
 .sec{padding:88px 0}
-.sec-dark{background:linear-gradient(155deg,#5E4D37,#4A3B2A);color:#F2E9DA}
+.sec-dark{background:linear-gradient(155deg,#E5D6BF,#DFCBB0);color:var(--ink)}
 .sec-cream{background:var(--cream)}
-.sec-beige{background:var(--beige)}
+.sec-beige{background:var(--arena)}
 .g-text{background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hr-gold{height:1px;width:64px;background:var(--grad-gold);border:0;margin:18px 0}
 .center{text-align:center}
@@ -72,7 +76,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .sec-head{max-width:640px}
 .sec-head h2{font-size:clamp(34px,4.8vw,56px);font-weight:500}
 .sec-head p{color:var(--ink-2);font-size:16px;margin:14px 0 0;font-weight:400}
-.sec-dark .sec-head p{color:#D8CBB6}
+.sec-dark .sec-head p{color:var(--ink-2)}
 
 /* ---------- Botones ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;border-radius:2px;transition:.4s var(--ease);position:relative;overflow:hidden;white-space:nowrap}
@@ -102,7 +106,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .brand-lg .brand-sub i{width:34px}
 
 /* ---------- Preloader ---------- */
-#preloader{position:fixed;inset:0;background:linear-gradient(160deg,#EBDECA,#DDCBAC);z-index:9999;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s}
+#preloader{position:fixed;inset:0;background:linear-gradient(160deg,#FBF3E6,#E5D6BF);z-index:9999;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s}
 #preloader.gone{opacity:0;visibility:hidden}
 .pl-bar{width:150px;height:1px;background:rgba(166,129,63,.25);margin-top:26px;overflow:hidden}
 .pl-bar span{display:block;height:100%;width:40%;background:var(--grad-gold);animation:plmove 1.1s infinite var(--ease)}
@@ -110,7 +114,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 
 /* ---------- Navbar ---------- */
 #nav{position:fixed;top:0;left:0;right:0;z-index:900;transition:.45s var(--ease);border-bottom:1px solid transparent}
-#nav.solid{background:rgba(246,239,228,.92);backdrop-filter:blur(16px);border-bottom-color:rgba(198,161,91,.3)}
+#nav.solid{background:rgba(251,243,230,.93);backdrop-filter:blur(16px);border-bottom-color:rgba(198,161,91,.3)}
 .nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:18px}
 .nav-links{display:flex;gap:30px}
 .nav-links a{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);position:relative;padding:6px 0;transition:.3s}
@@ -148,22 +152,22 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 #mMenu nav a:active{color:var(--gold)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;background:linear-gradient(158deg,#6B5A44 0%,#5A4A36 55%,#4E3F2D 100%);overflow:hidden;padding-top:var(--nav-h)}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h)}
 .hero::before{content:'';position:absolute;width:900px;height:900px;right:-260px;top:-160px;background:radial-gradient(circle,rgba(223,199,154,.28),transparent 60%);pointer-events:none}
 .hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
 /*hero café*/
-.hero .eyebrow{color:var(--gold-lt)}
+.hero .eyebrow{color:var(--gold-dp)}
 .hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:70px 0 90px}
-.hero h1{font-size:clamp(50px,7.2vw,96px);color:#FBF5EA;font-weight:400;letter-spacing:.005em;line-height:1.14}
+.hero h1{font-size:clamp(50px,7.2vw,96px);color:var(--ink);font-weight:500;letter-spacing:.02em;line-height:1.14}
 .hero h1 em{font-style:italic;display:inline-block;line-height:1.28;padding-bottom:.12em;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p.lead{color:#D5C6AE;max-width:440px;margin:24px 0 34px;font-size:17px}
+.hero p.lead{color:var(--ink-2);max-width:440px;margin:24px 0 34px;font-size:17px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 .hero-social{display:flex;align-items:center;gap:14px;margin-top:44px}
 .avs{display:flex}
-.avs span{width:38px;height:38px;border-radius:50%;border:2px solid #5A4A36;margin-left:-12px;background:var(--grad-gold);display:grid;place-items:center;font-size:12px;color:#1F1710;font-weight:600;font-family:var(--ff-display)}
+.avs span{width:38px;height:38px;border-radius:50%;border:2px solid var(--cream);margin-left:-12px;background:var(--grad-gold);display:grid;place-items:center;font-size:12px;color:#1F1710;font-weight:600;font-family:var(--ff-display)}
 .avs span:first-child{margin-left:0}
-.hero-social b{font-family:var(--ff-display);font-size:28px;color:#F4EAD8;font-weight:500}
-.hero-social small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B7A88E}
+.hero-social b{font-family:var(--ff-display);font-size:28px;color:var(--ink);font-weight:600}
+.hero-social small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
 .hero-visual{position:relative}
 .hero-frame{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#241B14;box-shadow:0 40px 90px rgba(0,0,0,.6)}
 .hero-frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 1.6s var(--ease)}
@@ -175,7 +179,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .hero-tag small{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
 .hero-tag b{display:block;font-family:var(--ff-display);font-size:16px;color:var(--ink);font-weight:500;margin:3px 0}
 .hero-tag i{font-style:normal;font-size:14px;color:var(--ink-2)}
-.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:4;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#B7A88E;display:flex;flex-direction:column;align-items:center;gap:9px}
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:4;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:9px}
 .scroll-hint::after{content:'';width:1px;height:38px;background:linear-gradient(var(--gold),transparent);animation:sdown 2s infinite}
 @keyframes sdown{0%,100%{opacity:.25;height:22px}50%{opacity:1;height:44px}}
 
@@ -195,8 +199,8 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .cat-ring{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid rgba(198,161,91,.35);padding:5px;background:linear-gradient(145deg,rgba(198,161,91,.3),transparent)}
 .cat-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;transition:.7s var(--ease)}
 .cat-c:hover .cat-ring img{transform:scale(1.12)}
-.cat-c h4{font-size:14px;margin-top:14px;color:#EFE9DE;font-family:var(--ff-display);font-weight:400}
-.cat-c small{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E776D}
+.cat-c h4{font-size:15px;margin-top:14px;color:var(--ink);font-family:var(--ff-display);font-weight:500}
+.cat-c small{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 
 /* ---------- Editorial ---------- */
 .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
@@ -213,7 +217,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 
 /* ---------- Tarjeta de producto ---------- */
 .grid-p{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-.card{background:#FCF8F1;border:1px solid rgba(90,72,50,.18);box-shadow:0 6px 20px rgba(74,56,36,.10);border-radius:3px;overflow:hidden;cursor:pointer;transition:.5s var(--ease);display:flex;flex-direction:column;position:relative}
+.card{background:#FFFDF8;border:1px solid rgba(120,95,60,.14);box-shadow:0 6px 20px rgba(120,95,60,.10);border-radius:3px;overflow:hidden;cursor:pointer;transition:.5s var(--ease);display:flex;flex-direction:column;position:relative}
 .card:hover{transform:translateY(-7px);box-shadow:var(--sh-md);border-color:var(--gold)}
 .card-img{position:relative;aspect-ratio:1;overflow:hidden;background:#F3EBDF}
 .card-img img{width:100%;height:100%;object-fit:cover;transition:.9s var(--ease)}
@@ -303,15 +307,15 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 
 /* ---------- Combos ---------- */
 .combo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:42px}
-.combo{background:var(--noir-2);border:1px solid rgba(198,161,91,.22);border-radius:3px;padding:20px;transition:.45s var(--ease)}
-.combo:hover{border-color:var(--gold);transform:translateY(-5px)}
+.combo{background:#FFFDF8;border:1px solid var(--line);border-radius:3px;padding:20px;transition:.45s var(--ease);box-shadow:var(--sh-sm)}
+.combo:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:var(--sh-md)}
 .combo-imgs{display:flex;gap:9px;margin-bottom:16px}
 .combo-imgs img{width:33.33%;aspect-ratio:1;object-fit:cover;border-radius:2px;background:#2E231A}
 .combo h4{font-size:19px;color:#EDE3D4}
-.combo p{font-size:13px;color:#948C81;margin:7px 0 14px;min-height:38px}
+.combo p{font-size:13.5px;color:var(--ink-2);margin:7px 0 14px;min-height:38px}
 .combo-price{display:flex;align-items:baseline;gap:10px;margin-bottom:15px}
-.combo-price b{font-family:var(--ff-display);font-size:23px;color:var(--gold-lt);font-weight:500}
-.combo-price s{color:#7A736A;font-size:14px}
+.combo-price b{font-family:var(--ff-display);font-size:24px;color:var(--gold-dp);font-weight:600}
+.combo-price s{color:var(--ink-2);font-size:14px}
 .combo-price em{font-style:normal;font-size:11px;background:rgba(181,114,60,.92);color:#fff;padding:3px 7px;border-radius:2px;letter-spacing:.1em}
 
 /* ---------- Testimonios ---------- */
@@ -335,7 +339,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .faq-a p{color:var(--ink-2);font-size:15px;padding:0 0 22px;margin:0;max-width:92%}
 
 /* ---------- Footer ---------- */
-footer{background:linear-gradient(160deg,#5E4D37,#4A3B2A);color:#D8CBB6;padding:70px 0 26px}
+footer{background:linear-gradient(160deg,#6E5E48,#5C4C38);color:#E6DAC6;padding:70px 0 26px}
 .ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:44px}
 footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 18px;font-family:var(--ff-sans);font-weight:500}
 .ft-links{list-style:none;padding:0;margin:0}
@@ -511,7 +515,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   -webkit-mask-composite:xor;mask-composite:exclude;
   animation:hbSpin 14s linear infinite;z-index:-1;opacity:.85}
 .hb-icon{width:clamp(50px,7.5vw,80px);height:auto;margin-bottom:clamp(14px,2.4vw,26px);
-  filter:drop-shadow(0 8px 26px rgba(0,0,0,.35));
+  filter:drop-shadow(0 8px 22px rgba(154,125,69,.3));
   animation:hbFloat 5s var(--ease) infinite,hbDrop 1.1s var(--ease) both}
 .hb-word{display:flex;gap:clamp(2px,.7vw,8px);position:relative}
 .hb-word span{font-family:var(--ff-display);font-weight:600;
@@ -589,7 +593,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   .ft-grid{grid-template-columns:1fr 1fr;gap:34px}
   .combo-grid,.tst-grid,.pet-grid{grid-template-columns:1fr;gap:20px}
   /*hero café*/
-.hero .eyebrow{color:var(--gold-lt)}
+.hero .eyebrow{color:var(--gold-dp)}
 .hero-grid{grid-template-columns:1fr;gap:36px}
   .hero-visual{max-width:460px}
   .hero-tag{left:auto;right:-10px}
@@ -858,7 +862,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 <div id="preloader">
   <div style="text-align:center">
     <span class="brand brand-lg">
-      <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 6c2.4 3.2 3.6 6.4 3.6 9.2 0 3.4-1.6 6-3.6 8.8-2-2.8-3.6-5.4-3.6-8.8 0-2.8 1.2-6 3.6-9.2z"/><path d="M23 9.4c3.4 1.2 5.8 3.4 7.2 6 1.6 3 1.8 6.2 1.2 9.6-3.2-1.2-5.8-3-7.6-5.6-1.9-2.8-2.3-6.2-.8-10z"/><path d="M41 9.4c-3.4 1.2-5.8 3.4-7.2 6-1.6 3-1.8 6.2-1.2 9.6 3.2-1.2 5.8-3 7.6-5.6 1.9-2.8 2.3-6.2.8-10z"/></g></svg>
+      <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
       <span class="brand-word">AMARME</span>
       <span class="brand-sub"><i></i>ACCESORIOS<i></i></span>
     </span>
@@ -871,7 +875,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   <div class="wrap nav-inner">
     <button class="ic-btn burger" id="burger" aria-label="Menú"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <a href="#inicio" class="brand" aria-label="AMARME Accesorios">
-      <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 6c2.4 3.2 3.6 6.4 3.6 9.2 0 3.4-1.6 6-3.6 8.8-2-2.8-3.6-5.4-3.6-8.8 0-2.8 1.2-6 3.6-9.2z"/><path d="M23 9.4c3.4 1.2 5.8 3.4 7.2 6 1.6 3 1.8 6.2 1.2 9.6-3.2-1.2-5.8-3-7.6-5.6-1.9-2.8-2.3-6.2-.8-10z"/><path d="M41 9.4c-3.4 1.2-5.8 3.4-7.2 6-1.6 3-1.8 6.2-1.2 9.6 3.2-1.2 5.8-3 7.6-5.6 1.9-2.8 2.3-6.2.8-10z"/></g></svg>
+      <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
       <span class="brand-word">AMARME</span>
       <span class="brand-sub"><i></i>ACCESORIOS<i></i></span>
     </a>
@@ -943,7 +947,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <div class="hero-brand">
         <div class="hb-glow"></div>
         <div class="hb-ring"></div>
-        <svg class="hb-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 6c2.4 3.2 3.6 6.4 3.6 9.2 0 3.4-1.6 6-3.6 8.8-2-2.8-3.6-5.4-3.6-8.8 0-2.8 1.2-6 3.6-9.2z"/><path d="M23 9.4c3.4 1.2 5.8 3.4 7.2 6 1.6 3 1.8 6.2 1.2 9.6-3.2-1.2-5.8-3-7.6-5.6-1.9-2.8-2.3-6.2-.8-10z"/><path d="M41 9.4c-3.4 1.2-5.8 3.4-7.2 6-1.6 3-1.8 6.2-1.2 9.6 3.2-1.2 5.8-3 7.6-5.6 1.9-2.8 2.3-6.2.8-10z"/></g></svg>
+        <svg class="hb-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
         <div class="hb-word"><span>A</span><span>M</span><span>A</span><span>R</span><span>M</span><span>E</span></div>
         <div class="hb-sub"><i></i>ACCESORIOS<i></i></div>
         <div class="hb-dot"></div>
@@ -968,8 +972,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 <section class="sec sec-dark" id="colecciones">
   <div class="wrap">
     <div class="sec-head center" style="margin:0 auto">
-      <span class="eyebrow on-dark">Colecciones</span>
-      <h2 style="color:#F4EEE4;margin-top:14px">Elige tu estilo</h2>
+      <span class="eyebrow">Colecciones</span>
+      <h2 style="margin-top:14px">Elige tu estilo</h2>
       <hr class="hr-gold">
       <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
     </div>
@@ -1124,8 +1128,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 <section class="sec sec-dark" id="combos">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow on-dark">Sets sugeridos</span>
-      <h2 style="color:#F4EEE4;margin-top:14px">Combina y ahorra</h2>
+      <span class="eyebrow">Sets sugeridos</span>
+      <h2 style="margin-top:14px">Combina y ahorra</h2>
       <hr class="hr-gold">
       <p>Tres piezas de la misma línea, pensadas para usarse juntas. Al agregar el set completo aplicamos <b style="color:var(--gold-lt)">10% de descuento</b> automático en tu cotización.</p>
     </div>
@@ -1203,7 +1207,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
     <div class="ft-grid">
       <div>
         <span class="brand" style="align-items:flex-start">
-          <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 6c2.4 3.2 3.6 6.4 3.6 9.2 0 3.4-1.6 6-3.6 8.8-2-2.8-3.6-5.4-3.6-8.8 0-2.8 1.2-6 3.6-9.2z"/><path d="M23 9.4c3.4 1.2 5.8 3.4 7.2 6 1.6 3 1.8 6.2 1.2 9.6-3.2-1.2-5.8-3-7.6-5.6-1.9-2.8-2.3-6.2-.8-10z"/><path d="M41 9.4c-3.4 1.2-5.8 3.4-7.2 6-1.6 3-1.8 6.2-1.2 9.6 3.2-1.2 5.8-3 7.6-5.6 1.9-2.8 2.3-6.2.8-10z"/></g></svg>
+          <svg class="brand-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
           <span class="brand-word">AMARME</span>
           <span class="brand-sub"><i></i>ACCESORIOS<i></i></span>
         </span>
@@ -1559,7 +1563,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 const CONFIG = {
   whatsapp: "573001112233",              // ← CAMBIAR por el WhatsApp real de AMARME (formato 57 + número)
   baseUrl: "",                           // ← URL pública del sitio (ej "https://usuario.github.io/amarme"). Habilita el preview de marca al compartir
-  supabase: { url: "", anonKey: "" },    // ← Opcional: inventario en la nube (ver README)
+  supabase: { url: "https://ugufqqfkhnmfmccsubnf.supabase.co", anonKey: "sb_publishable_9TgNvxk8X5_WZFC8M3bWEg_M9_xFF7z" },
   marca: "AMARME Accesorios",
   ciudad: "Ibagué, Tolima",
   email: "hola@amarmeaccesorios.com",
@@ -2497,7 +2501,7 @@ function dl(name, content, type='text/plain'){
 }
 
 /* ============ CONEXIÓN ============ */
-let SB = LS.get('sb', {url:'',key:''});
+let SB = LS.get('sb', null) || (typeof CONFIG!=='undefined' && CONFIG.supabase && CONFIG.supabase.url ? {url:CONFIG.supabase.url, key:CONFIG.supabase.anonKey} : {url:'',key:''});
 const isCloud = ()=> !!(SB.url && SB.key);
 let token = sessionStorage.getItem('amarme_tk') || '';
 function sbHeaders(){ return { apikey:SB.key, Authorization:'Bearer '+(token||SB.key), 'Content-Type':'application/json', Prefer:'return=representation' }; }
