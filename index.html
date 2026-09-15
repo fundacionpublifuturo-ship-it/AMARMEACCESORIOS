@@ -1718,6 +1718,7 @@ const catIcon = c => `<svg class="ic" viewBox="0 0 24 24">${ICONS[c]||ICONS['Cha
    ============================================================ */
 function matchExcept(p, skip){
   if(p.oculto) return false;
+  if(isOut(p)) return false;
   if(state.tab==='pet' ? p.c!==PET : p.c===PET) return false;
   if(skip!=='cat' && state.cats.size && !state.cats.has(p.c)) return false;
   if(skip!=='mat' && state.mats.size && !p.m.some(m=>state.mats.has(m))) return false;
@@ -1801,8 +1802,8 @@ function renderGrid(reset=true){
          <button class="btn btn-line" style="margin-top:18px" id="emptyClear">Limpiar filtros</button>
        </div>`;
   $('#loadMoreWrap').style.display = slice.length < currentList.length ? 'block' : 'none';
-  $('#tabNMain').textContent = PRODUCTS.filter(p=>p.c!==PET).length;
-  $('#tabNPet').textContent  = PRODUCTS.filter(p=>p.c===PET).length;
+  $('#tabNMain').textContent = PRODUCTS.filter(p=>p.c!==PET && !p.oculto && !isOut(p)).length;
+  $('#tabNPet').textContent  = PRODUCTS.filter(p=>p.c===PET && !p.oculto && !isOut(p)).length;
   $$('#catTabs .tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===state.tab));
   buildFilters(); chipsHTML();
 }
@@ -1828,7 +1829,7 @@ function openProduct(sku){
   pdSel = { sku, size: sizesOf(p) ? 'Ajustable' : null, qty:1, color: _cols?_cols[0]:null };
   const st = stockOf(p), out = st<=0;
   const sizes = sizesOf(p);
-  const rel = PRODUCTS.filter(x=>x.c===p.c && x.s!==p.s)
+  const rel = PRODUCTS.filter(x=>x.c===p.c && x.s!==p.s && !x.oculto && !isOut(x))
     .sort((a,b)=>Math.abs(a.p-p.p)-Math.abs(b.p-p.p)).slice(0,4);
   $('#pdContent').innerHTML = `
     <div class="pd-media">
@@ -2233,10 +2234,10 @@ function initSections(){
   }).join('');
 
   // Pet Lovers
-  $('#petGrid').innerHTML = PRODUCTS.filter(p=>p.c===PET).map(cardHTML).join('');
+  $('#petGrid').innerHTML = PRODUCTS.filter(p=>p.c===PET && !p.oculto && !isOut(p)).map(cardHTML).join('');
 
   // Ofertas (sección destacada)
-  const ofertas = PRODUCTS.filter(p=>p.sale && !p.oculto && p.c!==PET);
+  const ofertas = PRODUCTS.filter(p=>p.sale && !p.oculto && !isOut(p) && p.c!==PET);
   const ofSec = document.querySelector('#ofertas');
   if(ofertas.length){
     $('#ofertaRail').innerHTML = ofertas.slice(0,12).map(cardHTML).join('');
@@ -2249,7 +2250,7 @@ function initSections(){
   $('#edImgs2').innerHTML = ed2.map(p=>`<div>${pic(p,700)}</div>`).join('');
 
   // destacados
-  const tops = PRODUCTS.filter(p=>p.b==='top' && p.c!==PET).slice(0,10);
+  const tops = PRODUCTS.filter(p=>p.b==='top' && p.c!==PET && !p.oculto && !isOut(p)).slice(0,10);
   $('#railTop').innerHTML = tops.map(cardHTML).join('');
 
   // combos
