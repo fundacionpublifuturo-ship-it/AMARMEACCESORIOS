@@ -1593,16 +1593,48 @@ let stockMap = {};
 try{ stockMap = JSON.parse(localStorage.getItem('amarme_stock')) || {} }catch(e){ stockMap = {} }
 const stockOf = p => (stockMap[p.s] !== undefined ? +stockMap[p.s] : (p.k !== undefined ? +p.k : 1));
 const isOut   = p => stockOf(p) <= 0;
+// Convierte una fila de Supabase al formato interno de la tienda
+function rowToProd(row){
+  return {
+    s: row.sku,
+    c: row.categoria,
+    n: row.nombre,
+    p: +row.precio,
+    i: row.imagen || '',
+    m: Array.isArray(row.materiales) ? row.materiales : [],
+    o: Array.isArray(row.ocasiones) ? row.ocasiones : [],
+    mm: row.medida_mm || null,
+    b: row.badge || '',
+    sale: !!row.sale,
+    colores: Array.isArray(row.colores) ? row.colores : [],
+    k: (row.stock !== undefined && row.stock !== null) ? +row.stock : 1,
+    oculto: (row.activo === false)   // activo=false en Supabase => oculto en la tienda
+  };
+}
+
 async function syncStock(){
   if(!CONFIG.supabase.url || !CONFIG.supabase.anonKey) return false;
   try{
-    const r = await fetch(CONFIG.supabase.url+'/rest/v1/productos?select=sku,stock,precio,nombre',
+    const r = await fetch(CONFIG.supabase.url+'/rest/v1/productos?select=*&order=categoria,nombre',
       { headers:{ apikey:CONFIG.supabase.anonKey, Authorization:'Bearer '+CONFIG.supabase.anonKey } });
     if(!r.ok) return false;
-    (await r.json()).forEach(row=>{ const p = bySku(row.sku); if(!p) return;
-      stockMap[p.s] = row.stock;
-      if(row.precio) p.p = row.precio;
-      if(row.nombre) p.n = row.nombre; });
+    const rows = await r.json();
+    if(!Array.isArray(rows) || !rows.length) return false;
+
+    // Reemplazar por completo el catálogo de la tienda con el de la nube
+    const nube = rows.map(rowToProd);
+    PRODUCTS.length = 0;
+    nube.forEach(p=>PRODUCTS.push(p));
+
+    // El stock de la nube es la fuente de verdad
+    stockMap = {};
+    PRODUCTS.forEach(p=>{ stockMap[p.s] = p.k; });
+    try{ localStorage.setItem('amarme_stock', JSON.stringify(stockMap)); }catch(e){}
+
+    // limpiar carrito/favoritos de productos que ya no existen
+    cart = cart.filter(i=>i && PRODUCTS.some(p=>p.s===i.s));
+    favs = favs.filter(s=>PRODUCTS.some(p=>p.s===s));
+
     return true;
   }catch(e){ return false }
 }
@@ -1618,9 +1650,8 @@ let favs  = LS.get('favs', []);
 cart = cart.filter(i=>i && PRODUCTS.some(p=>p.s===i.s));
 favs = favs.filter(s=>PRODUCTS.some(p=>p.s===s));
 let coupon = null;
-const PRICES = PRODUCTS.map(p=>p.p);
-const PMIN = Math.floor(Math.min(...PRICES)/1000)*1000;
-const PMAX = Math.ceil(Math.max(...PRICES)/1000)*1000;
+let PMIN = Math.floor(Math.min(...PRODUCTS.map(p=>p.p))/1000)*1000;
+let PMAX = Math.ceil(Math.max(...PRODUCTS.map(p=>p.p))/1000)*1000;
 
 const state = { tab:'main', cats:new Set(), mats:new Set(), occ:new Set(), flags:new Set(), q:'', sort:'rel', min:PMIN, max:PMAX, page:1, per:24 };
 
@@ -1746,9 +1777,15 @@ function sorted(list){
 }
 
 const CAT_ORDER = ['Aretes','Candongas','Earcuffs','Collares','Cadenas','Anillos','Pulseras','Coletas','Charms','Pet Lovers'];
-const CATS = CAT_ORDER.filter(c=>PRODUCTS.some(p=>p.c===c));
-const MATS = [...new Set(PRODUCTS.flatMap(p=>p.m))].sort();
+let CATS = CAT_ORDER.filter(c=>PRODUCTS.some(p=>p.c===c));
+let MATS = [...new Set(PRODUCTS.flatMap(p=>p.m))].sort();
 const OCCS = ['Diario','Fiesta','Regalo','Novia'];
+function recalcTaxonomies(){
+  CATS = CAT_ORDER.filter(c=>PRODUCTS.some(p=>p.c===c));
+  const extra = [...new Set(PRODUCTS.map(p=>p.c))].filter(c=>!CAT_ORDER.includes(c));
+  CATS = CATS.concat(extra);
+  MATS = [...new Set(PRODUCTS.flatMap(p=>p.m))].sort();
+}
 
 function buildFilters(){
   const visCats = CATS.filter(c => state.tab==='pet' ? c===PET : c!==PET);
@@ -2455,7 +2492,19 @@ function init(){
   $('#rMin').min=PMIN; $('#rMin').max=PMAX; $('#rMax').min=PMIN; $('#rMax').max=PMAX;
   setTimeout(()=>{ renderGrid(); $$('.rv').forEach(el=>io.observe(el)); }, 380);
   renderCart(); renderFavs();
-  syncStock().then(ok=>{ if(ok){ renderGrid(); initSections(); } });
+  syncStock().then(ok=>{ if(ok){
+    // recalcular rango de precios con el catálogo de la nube
+    const pr = PRODUCTS.map(p=>p.p);
+    if(pr.length){
+      PMIN = Math.floor(Math.min(...pr)/1000)*1000;
+      PMAX = Math.ceil(Math.max(...pr)/1000)*1000;
+      state.min = PMIN; state.max = PMAX;
+      $('#rMin').min=PMIN; $('#rMin').max=PMAX; $('#rMin').value=PMIN;
+      $('#rMax').min=PMIN; $('#rMax').max=PMAX; $('#rMax').value=PMAX;
+    }
+    recalcTaxonomies();
+    renderGrid(); initSections(); buildFilters(); renderCart(); renderFavs();
+  } });
   addEventListener('storage', e=>{ if(e.key==='amarme_stock'){
     try{ stockMap = JSON.parse(e.newValue)||{} }catch(err){}; renderGrid(); } });
   const sku = new URLSearchParams(location.search).get('p');
