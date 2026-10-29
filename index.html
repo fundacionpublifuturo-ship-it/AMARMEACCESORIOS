@@ -226,17 +226,18 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .imp-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(130% 80% at 50% -10%,rgba(255,255,255,.55),transparent 60%);pointer-events:none}
 .imp-head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap}
 .imp-eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:700;color:#C8102E}
-.imp-brand{margin-top:10px;line-height:.9;padding-right:90px}
-.imp-amarme{position:relative;display:inline-block;font-family:var(--ff-display);font-weight:700;font-style:italic;
+.imp-brand{position:relative;margin-top:16px;line-height:.92;display:block;padding-top:36px;width:max-content;max-width:100%}
+.imp-amarme{display:block;font-family:var(--ff-display);font-weight:700;font-style:italic;
   font-size:clamp(42px,7vw,76px);color:#C8102E;letter-spacing:.01em}
-.imp-plane{position:absolute;right:-92px;top:-26px;width:clamp(60px,9vw,108px);height:auto;overflow:visible}
+.imp-imported{display:block;font-family:var(--ff-display);font-weight:700;
+  font-size:clamp(34px,5.6vw,60px);color:#C8102E;margin-top:2px}
+.imp-plane{position:absolute;right:-6px;top:-4px;width:clamp(64px,10vw,116px);height:auto;overflow:visible;pointer-events:none}
+@media(max-width:560px){.imp-plane{width:88px;right:0}}
 .imp-plane .imp-body{fill:#C8102E}
 .imp-plane .imp-heart{fill:#C8102E}
 .imp-plane .imp-dash{stroke:#C8102E;stroke-width:2.4;stroke-dasharray:4 5;stroke-linecap:round;
   stroke-dashoffset:200;animation:impDash 2.6s var(--ease) forwards}
 @keyframes impDash{to{stroke-dashoffset:0}}
-.imp-imported{display:block;font-family:var(--ff-display);font-weight:700;
-  font-size:clamp(34px,5.6vw,60px);color:#C8102E;margin-top:2px}
 .imp-lead{margin-top:14px;max-width:440px;color:#8A2230;font-size:14px;line-height:1.6}
 .imp-nav button{border-color:rgba(200,16,46,.4);color:#C8102E}
 .imp-nav button:hover{background:#C8102E;color:#fff;border-color:#C8102E}
@@ -1080,9 +1081,10 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   <div class="wrap" style="position:relative;z-index:2">
     <div class="imp-head">
       <div class="imp-title">
-        <span class="imp-eyebrow">✈ Traídas para ti · Edición especial</span>
+        <span class="imp-eyebrow">Traídas para ti · Edición especial</span>
         <div class="imp-brand">
-          <span class="imp-amarme">Amarme<svg class="imp-plane" viewBox="0 0 120 60"><path class="imp-dash" d="M4 54 C30 54 34 30 50 30 C60 30 60 42 52 42 C44 42 46 30 58 26 C78 19 92 20 108 12" fill="none"/><path class="imp-heart" d="M44 30c-2-3-7-3-7 1 0 3 4 5 7 8 3-3 7-5 7-8 0-4-5-4-7-1z"/><path class="imp-body" d="M80 10l34-4-30 16-6 14-4-10-14-4z"/></svg></span>
+          <svg class="imp-plane" viewBox="0 0 140 70" aria-hidden="true"><path class="imp-dash" d="M6 60 C34 60 36 40 50 40 C58 40 58 50 51 50 C44 50 46 38 60 33 C84 24 98 26 116 16" fill="none"/><path class="imp-heart" d="M52 36c-2.4-3.2-7.6-2.4-7.6 1.6 0 3 4 5.4 7.6 8.4 3.6-3 7.6-5.4 7.6-8.4 0-4-5.2-4.8-7.6-1.6z"/><path class="imp-body" d="M92 14 L130 8 L98 26 L92 42 L86 29 L70 24 Z"/></svg>
+          <span class="imp-amarme">Amarme</span>
           <span class="imp-imported">Importados</span>
         </div>
         <p class="imp-lead">Accesorios importados de edición limitada, elegidos uno a uno. Diseños que no encuentras en otro lugar.</p>
@@ -2338,10 +2340,12 @@ function initSections(){
   const importados = PRODUCTS.filter(p=>isImport(p) && !p.oculto && !isOut(p));
   const impSec = document.querySelector('#importados');
   if(impSec){
+    impSec.style.display='';
     if(importados.length){
-      impSec.style.display='';
       $('#importadosRail').innerHTML = importados.slice(0,12).map(cardHTML).join('');
-    } else { impSec.style.display='none'; }
+    } else {
+      $('#importadosRail').innerHTML = '<div style="padding:30px 4px;color:#8A2230;font-size:14px">Muy pronto: piezas importadas de edición limitada. ✈</div>';
+    }
   }
 
   // editorial imágenes
@@ -2351,7 +2355,12 @@ function initSections(){
   $('#edImgs2').innerHTML = ed2.map(p=>`<div>${pic(p,700)}</div>`).join('');
 
   // destacados
-  const tops = PRODUCTS.filter(p=>p.b==='top' && p.c!==PET && !p.oculto && !isOut(p)).slice(0,10);
+  let tops = PRODUCTS.filter(p=>p.b==='top' && p.c!==PET && !p.oculto && !isOut(p));
+  if(tops.length < 4){
+    // respaldo: completar con productos disponibles para que nunca quede vacía
+    const extra = PRODUCTS.filter(p=>p.c!==PET && !p.oculto && !isOut(p) && !tops.includes(p));
+    tops = tops.concat(extra).slice(0,10);
+  } else { tops = tops.slice(0,10); }
   $('#railTop').innerHTML = tops.map(cardHTML).join('');
 
   // combos
