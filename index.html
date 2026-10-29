@@ -152,7 +152,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 #mMenu nav a:active{color:var(--gold)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h)}
+.hero{position:relative;min-height:62svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h);padding-bottom:28px}
 .hero::before{content:'';position:absolute;width:900px;height:900px;right:-260px;top:-160px;background:radial-gradient(circle,rgba(223,199,154,.28),transparent 60%);pointer-events:none}
 .hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
 /*hero café*/
@@ -219,9 +219,33 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .grid-p{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
 .card{background:#FFFDF8;border:1px solid rgba(120,95,60,.14);box-shadow:0 6px 20px rgba(120,95,60,.10);border-radius:3px;overflow:hidden;cursor:pointer;transition:.5s var(--ease);display:flex;flex-direction:column;position:relative}
 .card:hover{transform:translateY(-7px);box-shadow:var(--sh-md);border-color:var(--gold)}
-.card-img{position:relative;aspect-ratio:1;overflow:hidden;background:#F3EBDF}
-.card-img img{width:100%;height:100%;object-fit:cover;transition:.9s var(--ease)}
-.card:hover .card-img img{transform:scale(1.08)}
+/* ===== AMARME Importados (sublínea rosa/rojo cereza) ===== */
+.imp-sec{position:relative;overflow:hidden;
+  background:
+    repeating-linear-gradient(90deg,#FBE4E8 0 32px,#FFF6F7 32px 64px);}
+.imp-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(130% 80% at 50% -10%,rgba(255,255,255,.55),transparent 60%);pointer-events:none}
+.imp-head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.imp-eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:700;color:#C8102E}
+.imp-brand{margin-top:10px;line-height:.9;padding-right:90px}
+.imp-amarme{position:relative;display:inline-block;font-family:var(--ff-display);font-weight:700;font-style:italic;
+  font-size:clamp(42px,7vw,76px);color:#C8102E;letter-spacing:.01em}
+.imp-plane{position:absolute;right:-92px;top:-26px;width:clamp(60px,9vw,108px);height:auto;overflow:visible}
+.imp-plane .imp-body{fill:#C8102E}
+.imp-plane .imp-heart{fill:#C8102E}
+.imp-plane .imp-dash{stroke:#C8102E;stroke-width:2.4;stroke-dasharray:4 5;stroke-linecap:round;
+  stroke-dashoffset:200;animation:impDash 2.6s var(--ease) forwards}
+@keyframes impDash{to{stroke-dashoffset:0}}
+.imp-imported{display:block;font-family:var(--ff-display);font-weight:700;
+  font-size:clamp(34px,5.6vw,60px);color:#C8102E;margin-top:2px}
+.imp-lead{margin-top:14px;max-width:440px;color:#8A2230;font-size:14px;line-height:1.6}
+.imp-nav button{border-color:rgba(200,16,46,.4);color:#C8102E}
+.imp-nav button:hover{background:#C8102E;color:#fff;border-color:#C8102E}
+.imp-btn{background:#C8102E;color:#fff;box-shadow:0 8px 22px rgba(200,16,46,.26)}
+.imp-btn:hover{background:#A60C25;transform:translateY(-2px);box-shadow:0 14px 30px rgba(200,16,46,.34)}
+.imp-rail .card-name,.imp-rail .card-price{color:#4a1118}
+.card-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(160deg,#FBF4E6,#F1E7D5)}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:6px;transition:.9s var(--ease)}
+.card:hover .card-img img{transform:scale(1.05)}
 .card-tags{position:absolute;top:11px;left:11px;display:flex;flex-direction:column;gap:6px;z-index:2}
 .tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;border-radius:2px;font-weight:500}
 .tag-new{background:var(--noir);color:var(--gold-lt)}
@@ -251,7 +275,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 .card-mat{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#9A9186}
 /* skeleton */
 .sk{background:#FBF4E6;border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.sk .a{aspect-ratio:1;background:linear-gradient(100deg,#EFE6D6 30%,#FBF4E6 50%,#EFE6D6 70%);background-size:220% 100%;animation:shim 1.4s infinite}
+.sk .a{aspect-ratio:4/5;background:linear-gradient(100deg,#EFE6D6 30%,#FBF4E6 50%,#EFE6D6 70%);background-size:220% 100%;animation:shim 1.4s infinite}
 .sk .b{height:12px;margin:16px;border-radius:2px;background:#EFE6D6}
 .sk .b.s{width:55%}
 @keyframes shim{0%{background-position:120% 0}100%{background-position:-120% 0}}
@@ -390,8 +414,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 .pd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);width:100%;max-width:100%}
 .pd>*{min-width:0}
 .pd-media{background:#FBF4E6;padding:26px;display:flex;flex-direction:column;gap:14px}
-.pd-main{position:relative;aspect-ratio:1;overflow:hidden;border-radius:3px;background:#F3EBDF;cursor:zoom-in}
-.pd-main img{width:100%;height:100%;object-fit:cover;transition:transform .35s var(--ease)}
+.pd-main{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:3px;background:linear-gradient(160deg,#FBF4E6,#F1E7D5);cursor:zoom-in}
+.pd-main img{width:100%;height:100%;object-fit:contain;padding:8px;transition:transform .35s var(--ease)}
 .pd-main.zoom img{transform:scale(2.2)}
 .pd-info{padding:36px 34px}
 .pd-info h2{font-size:clamp(26px,3.2vw,34px);margin:10px 0 0}
@@ -927,8 +951,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow">AMARME Accesorios · Ibagué, Colombia</span>
-      <h1 style="margin-top:20px">Nuestras<br>Colecciones <em>de Lujo</em></h1>
-      <p class="lead">Piezas con baño en oro, perlas y circones, seleccionadas para que te acompañen todos los días. Arma tu pedido en línea y recíbelo en la puerta de tu casa.</p>
+      <h1 style="margin-top:14px">Colecciones <em>de Lujo</em></h1>
+      <p class="lead">Baño en oro, perlas y circones. Arma tu pedido y recíbelo en casa.</p>
       <div class="hero-cta">
         <a href="#catalogo" class="btn btn-gold">Ver catálogo<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="#colecciones" class="btn btn-ghost">Explorar colecciones</a>
@@ -952,7 +976,6 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 
     </div>
   </div>
-  <div class="scroll-hint">Desliza</div>
 </section>
 
 <!-- ============ TRUST ============ -->
@@ -965,77 +988,8 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   </div>
 </section>
 
-<!-- ============ CATEGORÍAS ============ -->
-<section class="sec sec-dark" id="colecciones">
-  <div class="wrap">
-    <div class="sec-head center" style="margin:0 auto">
-      <span class="eyebrow">Colecciones</span>
-      <h2 style="margin-top:14px">Elige tu estilo</h2>
-      <hr class="hr-gold">
-      <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
-    </div>
-    <div class="cat-row rv" id="catRow"></div>
-  </div>
-</section>
 
-<!-- ============ EDITORIAL ============ -->
-<section class="sec sec-cream">
-  <div class="wrap ed-grid">
-    <div class="ed-imgs rv" id="edImgs"></div>
-    <div class="rv">
-      <span class="eyebrow">El arte del detalle</span>
-      <h2 style="font-size:clamp(30px,4vw,46px);margin-top:14px">Joyería que se siente<br>tan bien como se ve</h2>
-      <hr class="hr-gold">
-      <p class="ed-quote">“Brilla en dorado, luce en cada detalle.”</p>
-      <p style="color:var(--ink-2)">AMARME nace en Ibagué con una idea simple: que una mujer no tenga que elegir entre precio justo y una pieza que de verdad se vea fina. Trabajamos baño en oro sobre base de acero y cobre, perlas y circones seleccionados pieza por pieza.</p>
-      <ul class="ed-list">
-        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Baño en oro real</b> — resistente al uso diario y al agua ocasional.</span></li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Curaduría propia</b> — cada referencia se prueba antes de entrar al catálogo.</span></li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Atención directa</b> — te asesoramos por WhatsApp antes de comprar.</span></li>
-      </ul>
-      <a href="#catalogo" class="btn btn-dark">Conocer el catálogo</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DESTACADOS ============ -->
-<section class="sec sec-beige">
-  <div class="wrap">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Lo más pedido</span>
-        <h2 style="margin-top:14px">Favoritos de nuestras clientas</h2>
-        <hr class="hr-gold">
-      </div>
-      <div class="rail-nav">
-        <button id="railL" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button id="railR" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
-    </div>
-    <div class="rail rv" id="railTop"></div>
-  </div>
-</section>
-
-<!-- ============ OFERTAS ============ -->
-<section class="sec" id="ofertas" style="background:linear-gradient(150deg,#EFE0CF,#E4D3BE);position:relative;overflow:hidden">
-  <div class="wrap" style="position:relative;z-index:2">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap">
-      <div class="sec-head">
-        <span class="eyebrow" style="color:var(--terra-dp)">✦ Precios especiales</span>
-        <h2 style="margin-top:14px">En oferta ahora</h2>
-        <hr class="hr-gold">
-        <p>Piezas seleccionadas a precio especial. Unidades limitadas — cuando se agotan, no vuelven al mismo precio.</p>
-      </div>
-      <div class="rail-nav">
-        <button id="ofL" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button id="ofR" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
-    </div>
-    <div class="rail rv" id="ofertaRail" style="margin-top:8px"></div>
-    <div style="margin-top:26px"><button class="btn btn-dark" id="verTodasOfertas">Ver todas las ofertas</button></div>
-  </div>
-</section>
-
+<!-- ============ CATALOGO (movido arriba) ============ -->
 <!-- ============ CATÁLOGO ============ -->
 <section class="sec sec-cream" id="catalogo">
   <div class="wrap">
@@ -1121,7 +1075,99 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   </div>
 </section>
 
-<!-- ============ COMBOS ============ -->
+<!-- ============ AMARME IMPORTADOS ============ -->
+<section class="sec imp-sec" id="importados">
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="imp-head">
+      <div class="imp-title">
+        <span class="imp-eyebrow">✈ Traídas para ti · Edición especial</span>
+        <div class="imp-brand">
+          <span class="imp-amarme">Amarme<svg class="imp-plane" viewBox="0 0 120 60"><path class="imp-dash" d="M4 54 C30 54 34 30 50 30 C60 30 60 42 52 42 C44 42 46 30 58 26 C78 19 92 20 108 12" fill="none"/><path class="imp-heart" d="M44 30c-2-3-7-3-7 1 0 3 4 5 7 8 3-3 7-5 7-8 0-4-5-4-7-1z"/><path class="imp-body" d="M80 10l34-4-30 16-6 14-4-10-14-4z"/></svg></span>
+          <span class="imp-imported">Importados</span>
+        </div>
+        <p class="imp-lead">Accesorios importados de edición limitada, elegidos uno a uno. Diseños que no encuentras en otro lugar.</p>
+      </div>
+      <div class="rail-nav imp-nav">
+        <button id="impL" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button id="impR" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="rail rv imp-rail" id="importadosRail" style="margin-top:8px"></div>
+    <div style="margin-top:26px"><button class="btn imp-btn" id="verTodosImportados">Ver todos los importados</button></div>
+  </div>
+</section>
+
+<!-- ============ CATEGORÍAS ============ -->
+<section class="sec sec-dark" id="colecciones">
+  <div class="wrap">
+    <div class="sec-head center" style="margin:0 auto">
+      <span class="eyebrow">Colecciones</span>
+      <h2 style="margin-top:14px">Elige tu estilo</h2>
+      <hr class="hr-gold">
+      <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
+    </div>
+    <div class="cat-row rv" id="catRow"></div>
+  </div>
+</section>
+
+<!-- ============ EDITORIAL ============ -->
+<section class="sec sec-cream">
+  <div class="wrap ed-grid">
+    <div class="ed-imgs rv" id="edImgs"></div>
+    <div class="rv">
+      <span class="eyebrow">El arte del detalle</span>
+      <h2 style="font-size:clamp(30px,4vw,46px);margin-top:14px">Joyería que se siente<br>tan bien como se ve</h2>
+      <hr class="hr-gold">
+      <p class="ed-quote">“Brilla en dorado, luce en cada detalle.”</p>
+      <p style="color:var(--ink-2)">AMARME nace en Ibagué con una idea simple: que una mujer no tenga que elegir entre precio justo y una pieza que de verdad se vea fina. Trabajamos baño en oro sobre base de acero y cobre, perlas y circones seleccionados pieza por pieza.</p>
+      <ul class="ed-list">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Baño en oro real</b> — resistente al uso diario y al agua ocasional.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Curaduría propia</b> — cada referencia se prueba antes de entrar al catálogo.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span><b>Atención directa</b> — te asesoramos por WhatsApp antes de comprar.</span></li>
+      </ul>
+      <a href="#catalogo" class="btn btn-dark">Conocer el catálogo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESTACADOS ============ -->
+<section class="sec sec-beige">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Lo más pedido</span>
+        <h2 style="margin-top:14px">Favoritos de nuestras clientas</h2>
+        <hr class="hr-gold">
+      </div>
+      <div class="rail-nav">
+        <button id="railL" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button id="railR" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="rail rv" id="railTop"></div>
+  </div>
+</section>
+
+<!-- ============ OFERTAS ============ -->
+<section class="sec" id="ofertas" style="background:linear-gradient(150deg,#EFE0CF,#E4D3BE);position:relative;overflow:hidden">
+  <div class="wrap" style="position:relative;z-index:2">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap">
+      <div class="sec-head">
+        <span class="eyebrow" style="color:var(--terra-dp)">✦ Precios especiales</span>
+        <h2 style="margin-top:14px">En oferta ahora</h2>
+        <hr class="hr-gold">
+        <p>Piezas seleccionadas a precio especial. Unidades limitadas — cuando se agotan, no vuelven al mismo precio.</p>
+      </div>
+      <div class="rail-nav">
+        <button id="ofL" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button id="ofR" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="rail rv" id="ofertaRail" style="margin-top:8px"></div>
+    <div style="margin-top:26px"><button class="btn btn-dark" id="verTodasOfertas">Ver todas las ofertas</button></div>
+  </div>
+</section>
+
 <section class="sec sec-dark" id="combos">
   <div class="wrap">
     <div class="sec-head">
@@ -1441,7 +1487,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
         <p class="sub">Mismo formato del archivo maestro de Drive. El SKU es la llave: si ya existe se actualiza, si no existe se crea con <b>stock = 1</b>.</p>
         <div class="drop" id="ad_drop">
           <p style="margin:0 0 14px;color:var(--ink-2)">Arrastra el archivo .csv aquí o selecciónalo</p>
-          <input type="file" id="ad_csvFile" accept=".csv,text/csv" style="display:none">
+          <input type="file" id="ad_csvFile" style="display:none">
           <button class="btn btn-gold" id="ad_pickCsv">Seleccionar archivo</button>
         </div>
         <p style="font-size:12.5px;color:var(--ink-2);margin-top:14px">
@@ -1535,7 +1581,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <div class="two" style="margin-top:12px">
         <div class="f"><label>Código (SKU)</label><input id="ad_mSku" placeholder="Se genera solo"></div>
         <div class="f"><label>Etiqueta</label><select id="ad_mBadge">
-          <option value="">Ninguna</option><option value="nuevo">Nuevo</option><option value="top">Más vendido</option>
+          <option value="">Ninguna</option><option value="nuevo">Nuevo</option><option value="top">Más vendido</option><option value="import">Importado</option>
         </select></div>
       </div>
       <div class="f"><label>Colores disponibles (separados por coma)</label><input id="ad_mColors" placeholder="Ej: Fucsia, Turquesa, Blanco — déjalo vacío si no aplica"></div>
@@ -1593,6 +1639,7 @@ let stockMap = {};
 try{ stockMap = JSON.parse(localStorage.getItem('amarme_stock')) || {} }catch(e){ stockMap = {} }
 const stockOf = p => (stockMap[p.s] !== undefined ? +stockMap[p.s] : (p.k !== undefined ? +p.k : 1));
 const isOut   = p => stockOf(p) <= 0;
+const isImport = p => p.b==='import' || /import/i.test(p.b||'') || (p.etq&&/import/i.test(p.etq));
 // Convierte una fila de Supabase al formato interno de la tienda
 function rowToProd(row){
   return {
@@ -1705,6 +1752,7 @@ function cardHTML(p){
   const tags = [];
   if(p.sale)        tags.push('<span class="tag tag-sale">Oferta</span>');
   if(p.b==='nuevo') tags.push('<span class="tag tag-new">Nuevo</span>');
+  if(isImport(p))   tags.push('<span class="tag" style="background:var(--cafe);color:var(--cream)">Importado</span>');
   if(p.b==='top')   tags.push('<span class="tag tag-top">Mas vendido</span>');
   return `<article class="card ${out?'out':''}" data-sku="${p.s}">
     <div class="card-img">
@@ -1740,6 +1788,8 @@ const ICONS = {
  'Pulseras':'<ellipse cx="12" cy="12" rx="8" ry="6"/><circle cx="12" cy="6" r="1.6"/>',
  'Coletas':'<path d="M6 5c4-2 8-2 12 0"/><path d="M12 5c0 6-3 9-3 14"/><path d="M12 5c0 6 3 9 3 14"/>',
  'Charms':'<path d="M12 21l-7-7a4.5 4.5 0 016.4-6.4L12 8l.6-.4A4.5 4.5 0 0119 14z"/>',
+ 'Tobilleras':'<path d="M5 8c3-2 11-2 14 0"/><path d="M5 8c0 4 2 7 7 7s7-3 7-7"/><circle cx="12" cy="18.5" r="1.8"/>',
+ 'Navidad':'<path d="M12 3l2.2 4.6L19 8l-3.4 3.3L16.5 16 12 13.6 7.5 16l.9-4.7L5 8l4.8-.4z"/>',
  'Pet Lovers':'<circle cx="8" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="5" cy="13" r="1.6"/><circle cx="19" cy="13" r="1.6"/><path d="M12 12c3 0 5 2.6 5 4.6S15 20 12 20s-5-1.4-5-3.4S9 12 12 12z"/>'
 };
 const catIcon = c => `<svg class="ic" viewBox="0 0 24 24">${ICONS[c]||ICONS['Charms']}</svg>`;
@@ -1758,6 +1808,7 @@ function matchExcept(p, skip){
   if(state.flags.has('nuevo') && p.b!=='nuevo') return false;
   if(state.flags.has('top')   && p.b!=='top')   return false;
   if(state.flags.has('sale')  && !p.sale)       return false;
+  if(state.flags.has('import')&& !isImport(p))  return false;
   if(state.flags.has('fav')   && !favs.includes(p.s)) return false;
   if(state.q){
     const q = norm(state.q);
@@ -1776,7 +1827,7 @@ function sorted(list){
   return l;
 }
 
-const CAT_ORDER = ['Aretes','Candongas','Earcuffs','Collares','Cadenas','Anillos','Pulseras','Coletas','Charms','Pet Lovers'];
+const CAT_ORDER = ['Aretes','Candongas','Earcuffs','Collares','Cadenas','Anillos','Pulseras','Tobilleras','Coletas','Charms','Navidad','Pet Lovers'];
 let CATS = CAT_ORDER.filter(c=>PRODUCTS.some(p=>p.c===c));
 let MATS = [...new Set(PRODUCTS.flatMap(p=>p.m))].sort();
 const OCCS = ['Diario','Fiesta','Regalo','Novia'];
@@ -2276,9 +2327,22 @@ function initSections(){
   // Ofertas (sección destacada)
   const ofertas = PRODUCTS.filter(p=>p.sale && !p.oculto && !isOut(p) && p.c!==PET);
   const ofSec = document.querySelector('#ofertas');
-  if(ofertas.length){
-    $('#ofertaRail').innerHTML = ofertas.slice(0,12).map(cardHTML).join('');
-  } else if(ofSec){ ofSec.style.display='none'; }
+  if(ofSec){
+    if(ofertas.length){
+      ofSec.style.display='';
+      $('#ofertaRail').innerHTML = ofertas.slice(0,12).map(cardHTML).join('');
+    } else { ofSec.style.display='none'; }
+  }
+
+  // AMARME Importados (sección destacada): productos con badge/etiqueta "import"
+  const importados = PRODUCTS.filter(p=>isImport(p) && !p.oculto && !isOut(p));
+  const impSec = document.querySelector('#importados');
+  if(impSec){
+    if(importados.length){
+      impSec.style.display='';
+      $('#importadosRail').innerHTML = importados.slice(0,12).map(cardHTML).join('');
+    } else { impSec.style.display='none'; }
+  }
 
   // editorial imágenes
   const ed = ['AMR-ARE-001','AMR-ANI-001','AMR-CAN-001'].map(s=>bySku(s)||PRODUCTS[0]);
@@ -2472,6 +2536,11 @@ if(ofl) ofl.onclick=()=>$('#ofertaRail').scrollBy({left:-320,behavior:'smooth'})
 if(ofr) ofr.onclick=()=>$('#ofertaRail').scrollBy({left:320,behavior:'smooth'});
 const vto=$('#verTodasOfertas');
 if(vto) vto.onclick=()=>{ state.tab='main'; state.cats.clear(); state.flags.clear(); state.flags.add('sale'); renderGrid(); document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'}); };
+const impl=$('#impL'), impr=$('#impR');
+if(impl) impl.onclick=()=>$('#importadosRail').scrollBy({left:-320,behavior:'smooth'});
+if(impr) impr.onclick=()=>$('#importadosRail').scrollBy({left:320,behavior:'smooth'});
+const vti=$('#verTodosImportados');
+if(vti) vti.onclick=()=>{ state.tab='main'; state.cats.clear(); state.flags.clear(); state.flags.add('import'); renderGrid(); document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'}); };
 $('#railL').onclick = ()=>$('#railTop').scrollBy({left:-320,behavior:'smooth'});
 $('#railR').onclick = ()=>$('#railTop').scrollBy({left: 320,behavior:'smooth'});
 
@@ -2526,7 +2595,7 @@ init();
 const ADMIN_CEDULAS = (typeof CONFIG!=='undefined' && CONFIG.adminCedulas) ? CONFIG.adminCedulas.map(String) : ['0000000000'];
 const EMAIL_DOMAIN = "amarme-admin.local"; // dominio interno para simular login por correo en Supabase
 const SEED = JSON.parse(document.getElementById('amarme-data').textContent);
-const CAT_ORDER = ['Aretes','Candongas','Earcuffs','Collares','Cadenas','Anillos','Pulseras','Coletas','Charms','Pet Lovers'];
+const CAT_ORDER = ['Aretes','Candongas','Earcuffs','Collares','Cadenas','Anillos','Pulseras','Tobilleras','Coletas','Charms','Navidad','Pet Lovers'];
 
 const ROOT=document.getElementById('adminOverlay');
 const $=(s,c=ROOT)=>c.querySelector(s), $$=(s,c=ROOT)=>[...c.querySelectorAll(s)];
@@ -2784,7 +2853,7 @@ function openProd(p){
 }
 function nextSku(cat){
   const pfx = {'Aretes':'ARE','Candongas':'CAN','Collares':'COL','Anillos':'ANI','Pulseras':'PUL','Cadenas':'CAD',
-               'Charms':'CHA','Earcuffs':'EAR','Coletas':'CLT','Pet Lovers':'PET'}[cat]||'GEN';
+               'Charms':'CHA','Earcuffs':'EAR','Coletas':'CLT','Tobilleras':'TOB','Navidad':'NAV','Pet Lovers':'PET'}[cat]||'GEN';
   const n = ITEMS.filter(p=>p.s.startsWith('AMR-'+pfx)).length + 1;
   let sku, i=n;
   do { sku = `AMR-${pfx}-${String(i).padStart(3,'0')}`; i++; } while(ITEMS.some(p=>p.s===sku));
@@ -2971,6 +3040,9 @@ function handleCSV(text){
     const p = { s:sku, c:cat||'Aretes', n:nom, p:+precio, i:img, b:'', m:['Dorado'], o:['Diario'], mm:null,
                 k: stk!==''? Math.max(0,+stk) : 1 };
     if(et==='SALE') p.sale = 1;
+    if(et==='IMPORTADO'||et==='IMPORT') p.b = 'import';
+    if(et==='NUEVO') p.b = 'nuevo';
+    if(et==='TOP'||et==='MAS VENDIDO') p.b = 'top';
     (ITEMS.some(x=>x.s===sku) ? upd : nuevos).push(p);
   });
   pending = {nuevos, upd};
