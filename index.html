@@ -239,6 +239,9 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
   stroke-dashoffset:200;animation:impDash 2.6s var(--ease) forwards}
 @keyframes impDash{to{stroke-dashoffset:0}}
 .imp-lead{margin-top:14px;max-width:440px;color:#8A2230;font-size:14px;line-height:1.6}
+.tab-imp.on{color:#C8102E}
+.tab-imp.on svg{stroke:#C8102E}
+.tab-imp.on::after{background:#C8102E!important}
 .imp-nav button{border-color:rgba(200,16,46,.4);color:#C8102E}
 .imp-nav button:hover{background:#C8102E;color:#fff;border-color:#C8102E}
 .imp-btn{background:#C8102E;color:#fff;box-shadow:0 8px 22px rgba(200,16,46,.26)}
@@ -1053,6 +1056,10 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
             <svg viewBox="0 0 24 24"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg>
             Accesorios <b id="tabNMain"></b>
           </button>
+          <button class="tab tab-imp" data-tab="import">
+            <svg viewBox="0 0 24 24"><path d="M10 15l10-9M20 6l-5 14-3-6-6-3z"/></svg>
+            Importados <b id="tabNImp"></b>
+          </button>
           <button class="tab" data-tab="pet">
             <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="2"/><circle cx="16" cy="8" r="2"/><circle cx="5" cy="13" r="1.8"/><circle cx="19" cy="13" r="1.8"/><path d="M12 12c3 0 5 2.6 5 4.6S15 20 12 20s-5-1.4-5-3.4S9 12 12 12z"/></svg>
             Pet Lovers <b id="tabNPet"></b>
@@ -1754,7 +1761,7 @@ function cardHTML(p){
   const tags = [];
   if(p.sale)        tags.push('<span class="tag tag-sale">Oferta</span>');
   if(p.b==='nuevo') tags.push('<span class="tag tag-new">Nuevo</span>');
-  if(isImport(p))   tags.push('<span class="tag" style="background:var(--cafe);color:var(--cream)">Importado</span>');
+  if(isImport(p))   tags.push('<span class="tag" style="background:#C8102E;color:#fff">Importado</span>');
   if(p.b==='top')   tags.push('<span class="tag tag-top">Mas vendido</span>');
   return `<article class="card ${out?'out':''}" data-sku="${p.s}">
     <div class="card-img">
@@ -1802,7 +1809,9 @@ const catIcon = c => `<svg class="ic" viewBox="0 0 24 24">${ICONS[c]||ICONS['Cha
 function matchExcept(p, skip){
   if(p.oculto) return false;
   if(isOut(p)) return false;
-  if(state.tab==='pet' ? p.c!==PET : p.c===PET) return false;
+  if(state.tab==='pet'){ if(p.c!==PET) return false; }
+  else if(state.tab==='import'){ if(!isImport(p) || p.c===PET) return false; }
+  else { if(p.c===PET || isImport(p)) return false; }  // main: accesorios sin importados ni pet
   if(skip!=='cat' && state.cats.size && !state.cats.has(p.c)) return false;
   if(skip!=='mat' && state.mats.size && !p.m.some(m=>state.mats.has(m))) return false;
   if(skip!=='occ' && state.occ.size && !p.o.some(o=>state.occ.has(o))) return false;
@@ -1841,7 +1850,10 @@ function recalcTaxonomies(){
 }
 
 function buildFilters(){
-  const visCats = CATS.filter(c => state.tab==='pet' ? c===PET : c!==PET);
+  let visCats;
+  if(state.tab==='pet') visCats = CATS.filter(c=>c===PET);
+  else if(state.tab==='import') visCats = CATS.filter(c=>c!==PET && PRODUCTS.some(p=>p.c===c && isImport(p)));
+  else visCats = CATS.filter(c=>c!==PET);
   $('#fCats').innerHTML = visCats.map(c=>{
     const n = PRODUCTS.filter(p=>p.c===c && matchExcept(p,'cat')).length;
     return `<label class="chk ${n?'':'dis'}"><input type="checkbox" data-cat="${esc(c)}" ${state.cats.has(c)?'checked':''}>${catIcon(c)}<span>${esc(c)}</span><span class="n">${n}</span></label>`;
@@ -1892,7 +1904,8 @@ function renderGrid(reset=true){
          <button class="btn btn-line" style="margin-top:18px" id="emptyClear">Limpiar filtros</button>
        </div>`;
   $('#loadMoreWrap').style.display = slice.length < currentList.length ? 'block' : 'none';
-  $('#tabNMain').textContent = PRODUCTS.filter(p=>p.c!==PET && !p.oculto && !isOut(p)).length;
+  $('#tabNMain').textContent = PRODUCTS.filter(p=>p.c!==PET && !isImport(p) && !p.oculto && !isOut(p)).length;
+  $('#tabNImp')&&($('#tabNImp').textContent = PRODUCTS.filter(p=>isImport(p) && p.c!==PET && !p.oculto && !isOut(p)).length);
   $('#tabNPet').textContent  = PRODUCTS.filter(p=>p.c===PET && !p.oculto && !isOut(p)).length;
   $$('#catTabs .tab').forEach(b=>b.classList.toggle('on', b.dataset.tab===state.tab));
   buildFilters(); chipsHTML();
@@ -2549,7 +2562,7 @@ const impl=$('#impL'), impr=$('#impR');
 if(impl) impl.onclick=()=>$('#importadosRail').scrollBy({left:-320,behavior:'smooth'});
 if(impr) impr.onclick=()=>$('#importadosRail').scrollBy({left:320,behavior:'smooth'});
 const vti=$('#verTodosImportados');
-if(vti) vti.onclick=()=>{ state.tab='main'; state.cats.clear(); state.flags.clear(); state.flags.add('import'); renderGrid(); document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'}); };
+if(vti) vti.onclick=()=>{ state.tab='import'; state.cats.clear(); state.flags.clear(); renderGrid(); document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'}); };
 $('#railL').onclick = ()=>$('#railTop').scrollBy({left:-320,behavior:'smooth'});
 $('#railR').onclick = ()=>$('#railTop').scrollBy({left: 320,behavior:'smooth'});
 
