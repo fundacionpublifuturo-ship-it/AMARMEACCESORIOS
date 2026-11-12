@@ -153,6 +153,12 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 
 /* ---------- HERO ---------- */
 .hero{position:relative;min-height:48svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h);padding-bottom:24px}
+.hero-mini{background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 55%,#E5D6BF 100%);padding-top:calc(var(--nav-h) + 30px);padding-bottom:34px;text-align:center}
+.hero-mini .hm-icon{width:46px;margin:0 auto 14px}
+.hero-mini .hm-icon svg{width:100%;height:auto;display:block}
+.hero-mini .hm-title{font-family:var(--ff-display);font-weight:600;color:var(--ink);font-size:clamp(34px,6vw,60px);line-height:1.06}
+.hero-mini .hm-title em{font-style:italic;color:var(--cafe)}
+.hero-mini .hm-lead{margin:14px auto 0;max-width:460px;color:var(--ink-2);font-size:15px;line-height:1.6}
 .hero::before{content:'';position:absolute;width:900px;height:900px;right:-260px;top:-160px;background:radial-gradient(circle,rgba(223,199,154,.28),transparent 60%);pointer-events:none}
 .hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
 /*hero café*/
@@ -966,35 +972,14 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   <a class="btn btn-gold" id="mMenuWa" style="margin-top:auto" href="#">Escríbenos por WhatsApp</a>
 </div>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="inicio">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">AMARME Accesorios · Ibagué, Colombia</span>
-      <h1 style="margin-top:14px">Colecciones <em>de Lujo</em></h1>
-      <p class="lead">Baño en oro, perlas y circones. Arma tu pedido y recíbelo en casa.</p>
-      <div class="hero-cta">
-        <a href="#catalogo" class="btn btn-gold">Ver catálogo<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="#colecciones" class="btn btn-ghost">Explorar colecciones</a>
-      </div>
-      <div class="hero-social">
-        <div class="avs"><span>M</span><span>V</span><span>L</span><span>+</span></div>
-        <div><b id="heroCount">+900</b><small>Clientas felices</small></div>
-        <div style="width:1px;height:40px;background:rgba(198,161,91,.25)"></div>
-        <div><b id="heroSku">278</b><small>Piezas disponibles</small></div>
-      </div>
+<!-- ============ HERO COMPACTO ============ -->
+<section class="hero-mini" id="inicio">
+  <div class="wrap">
+    <div class="hm-icon">
+      <svg viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
     </div>
-    <div class="hero-visual">
-      <div class="hero-brand">
-        <div class="hb-glow"></div>
-        <div class="hb-ring"></div>
-        <svg class="hb-icon" viewBox="0 0 64 48"><g fill="url(#gg1)"><path d="M32 4c2.6 3.6 3.9 7 3.9 10 0 3.6-1.7 6.4-3.9 9.2-2.2-2.8-3.9-5.6-3.9-9.2 0-3 1.3-6.4 3.9-10z"/><path d="M20.5 8.2c3.4 1.4 5.7 3.6 6.9 6.3 1.3 3 1.3 6.2.5 9.6-3.2-1.4-5.6-3.4-7-6.2-1.4-2.9-1.6-6.1-.4-9.7z"/><path d="M43.5 8.2c-3.4 1.4-5.7 3.6-6.9 6.3-1.3 3-1.3 6.2-.5 9.6 3.2-1.4 5.6-3.4 7-6.2 1.4-2.9 1.6-6.1.4-9.7z"/></g></svg>
-        <div class="hb-word"><span>A</span><span>M</span><span>A</span><span>R</span><span>M</span><span>E</span></div>
-        <div class="hb-sub"><i></i>ACCESORIOS<i></i></div>
-        <div class="hb-dot"></div>
-      </div>
-
-    </div>
+    <h1 class="hm-title">Colecciones <em>de Lujo</em></h1>
+    <p class="hm-lead">Baño en oro, perlas y circones. Elige tu categoría y arma tu pedido.</p>
   </div>
 </section>
 
@@ -2382,7 +2367,8 @@ function catImage(cat, imp){
   return any ? any.i : '';
 }
 function initSections(){
-  $('#heroSku').textContent = '+' + PRODUCTS.length; $('#stSku').textContent = PRODUCTS.length;
+  if($('#heroSku')) $('#heroSku').textContent = '+' + PRODUCTS.length;
+  if($('#stSku')) $('#stSku').textContent = PRODUCTS.length;
 
   // categorías (Pet Lovers va en su propia sección) + categorías nuevas creadas en el admin
   const extraCats = [...new Set(PRODUCTS.map(p=>p.c))].filter(c=>c && c!==PET && !CAT_ORDER.includes(c));
