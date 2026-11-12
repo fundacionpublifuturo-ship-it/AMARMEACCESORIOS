@@ -240,6 +240,11 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
   stroke-dashoffset:200;animation:impDash 2.6s var(--ease) forwards}
 @keyframes impDash{to{stroke-dashoffset:0}}
 .imp-lead{margin-top:14px;max-width:440px;color:#8A2230;font-size:14px;line-height:1.6}
+.cat-imp-label{text-align:center;margin-bottom:18px}
+.cat-imp-label span{display:inline-block;color:#E87A8B;font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;
+  border-top:1px solid rgba(232,122,139,.35);border-bottom:1px solid rgba(232,122,139,.35);padding:7px 20px}
+.cat-row-imp .cat-ring{border:2.5px solid #E05A72;box-shadow:0 0 0 4px rgba(224,90,114,.15)}
+.cat-row-imp .cat-c h4{color:#F3C9D1}
 .tab-imp.on{color:#C8102E}
 .tab-imp.on svg{stroke:#C8102E}
 .tab-imp.on::after{background:#C8102E!important}
@@ -1014,6 +1019,10 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
     </div>
     <div class="cat-row rv" id="catRow"></div>
+    <div id="catImpWrap" style="display:none;margin-top:30px">
+      <div class="cat-imp-label"><span>✈ AMARME Importados</span></div>
+      <div class="cat-row rv cat-row-imp" id="catRowImp"></div>
+    </div>
   </div>
 </section>
 
@@ -1597,6 +1606,10 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <div class="f"><label>Precio (COP) *</label><input id="ad_mPrice" type="number" inputmode="numeric" min="0" step="1000" placeholder="35000"></div>
       <div class="f"><label>Categoría</label><select id="ad_mCat"></select></div>
     </div>
+    <div class="f"><label>Línea</label><select id="ad_mLinea">
+      <option value="accesorios">AMARME Accesorios</option>
+      <option value="import">AMARME Importados</option>
+    </select></div>
     <div class="two">
       <div class="f"><label>Cantidad (stock)</label><input id="ad_mStock" type="number" inputmode="numeric" min="0" step="1" value="1"></div>
       <div class="f"><label>¿En oferta?</label><select id="ad_mSale"><option value="0">No</option><option value="1">Sí, mostrar “Oferta”</option></select></div>
@@ -1606,7 +1619,7 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <div class="two" style="margin-top:12px">
         <div class="f"><label>Código (SKU)</label><input id="ad_mSku" placeholder="Se genera solo"></div>
         <div class="f"><label>Etiqueta</label><select id="ad_mBadge">
-          <option value="">Ninguna</option><option value="nuevo">Nuevo</option><option value="top">Más vendido</option><option value="import">Importado</option>
+          <option value="">Ninguna</option><option value="nuevo">Nuevo</option><option value="top">Más vendido</option>
         </select></div>
       </div>
       <div class="f"><label>Colores disponibles (separados por coma)</label><input id="ad_mColors" placeholder="Ej: Fucsia, Turquesa, Blanco — déjalo vacío si no aplica"></div>
@@ -1664,7 +1677,7 @@ let stockMap = {};
 try{ stockMap = JSON.parse(localStorage.getItem('amarme_stock')) || {} }catch(e){ stockMap = {} }
 const stockOf = p => (stockMap[p.s] !== undefined ? +stockMap[p.s] : (p.k !== undefined ? +p.k : 1));
 const isOut   = p => stockOf(p) <= 0;
-const isImport = p => p.b==='import' || /import/i.test(p.b||'') || (p.etq&&/import/i.test(p.etq));
+const isImport = p => p.linea==='import' || p.b==='import' || /import/i.test(p.b||'') || (p.etq&&/import/i.test(p.etq));
 // Convierte una fila de Supabase al formato interno de la tienda
 function rowToProd(row){
   return {
@@ -2346,11 +2359,13 @@ let catImgs = {};
 try{ catImgs = JSON.parse(localStorage.getItem('amarme_catimgs')||'{}'); }catch(e){ catImgs={}; }
 // Devuelve la imagen a mostrar en el círculo de una categoría:
 // 1) la personalizada del admin, si existe; 2) un producto disponible (no agotado ni oculto); 3) cualquiera
-function catImage(cat){
-  if(catImgs[cat]) return catImgs[cat];
-  const disp = PRODUCTS.find(p=>p.c===cat && !p.oculto && !isOut(p) && p.i);
+function catImage(cat, imp){
+  const key = imp ? 'imp:'+cat : cat;
+  if(catImgs[key]) return catImgs[key];
+  const match = p => p.c===cat && (imp ? isImport(p) : !isImport(p));
+  const disp = PRODUCTS.find(p=>match(p) && !p.oculto && !isOut(p) && p.i);
   if(disp) return disp.i;
-  const any = PRODUCTS.find(p=>p.c===cat && p.i);
+  const any = PRODUCTS.find(p=>match(p) && p.i);
   return any ? any.i : '';
 }
 function initSections(){
@@ -2358,12 +2373,26 @@ function initSections(){
 
   // categorías (Pet Lovers va en su propia sección)
   const order = CAT_ORDER.filter(c=>c!==PET);
-  $('#catRow').innerHTML = order.filter(c=>CATS.includes(c)).map(c=>{
-    const img = catImage(c);
-    const n = PRODUCTS.filter(x=>x.c===c && !x.oculto && !isOut(x)).length;
+  // Fila 1: accesorios (categorías con productos NO importados)
+  const catsAcc = order.filter(c=>CATS.includes(c) && PRODUCTS.some(p=>p.c===c && !isImport(p) && !p.oculto && !isOut(p)));
+  $('#catRow').innerHTML = catsAcc.map(c=>{
+    const img = catImage(c,false);
+    const n = PRODUCTS.filter(x=>x.c===c && !isImport(x) && !x.oculto && !isOut(x)).length;
     return `<div class="cat-c" data-gocat="${c}"><div class="cat-ring"><img src="${imgUrl(img,400)}" data-id="${img}" data-w="400" onerror="imgFail(this)" referrerpolicy="no-referrer" loading="lazy" alt="${esc(c)}"></div>
       <h4>${c}</h4><small>${n} piezas</small></div>`;
   }).join('');
+  // Fila 2: importados (categorías con productos importados)
+  const catsImp = order.filter(c=>PRODUCTS.some(p=>p.c===c && isImport(p) && !p.oculto && !isOut(p)));
+  const impWrap = $('#catImpWrap');
+  if(catsImp.length){
+    impWrap.style.display='';
+    $('#catRowImp').innerHTML = catsImp.map(c=>{
+      const img = catImage(c,true);
+      const n = PRODUCTS.filter(x=>x.c===c && isImport(x) && !x.oculto && !isOut(x)).length;
+      return `<div class="cat-c" data-gocat="${c}" data-imp="1"><div class="cat-ring"><img src="${imgUrl(img,400)}" data-id="${img}" data-w="400" onerror="imgFail(this)" referrerpolicy="no-referrer" loading="lazy" alt="${esc(c)}"></div>
+        <h4>${c}</h4><small>${n} piezas</small></div>`;
+    }).join('');
+  } else { impWrap.style.display='none'; }
 
   // Pet Lovers
   $('#petGrid').innerHTML = PRODUCTS.filter(p=>p.c===PET && !p.oculto && !isOut(p)).map(cardHTML).join('');
@@ -2505,7 +2534,9 @@ document.addEventListener('click', e=>{
     $('#catalogo').scrollIntoView({behavior:'smooth'}); return; }
   // ir a categoría
   const gc = t.closest('[data-gocat]');
-  if(gc){ e.preventDefault(); state.tab = gc.dataset.gocat===PET ? 'pet' : 'main';
+  if(gc){ e.preventDefault();
+    if(gc.dataset.imp==='1') state.tab='import';
+    else state.tab = gc.dataset.gocat===PET ? 'pet' : 'main';
     state.cats.clear(); state.cats.add(gc.dataset.gocat); state.flags.clear();
     renderGrid(); $('#catalogo').scrollIntoView({behavior:'smooth'}); return; }
   // combos
@@ -2960,7 +2991,8 @@ function openProd(p){
   $('#ad_mName').value = p?p.n:''; $('#ad_mSku').value = p?p.s:nextSku('Aretes');
   $('#ad_mCat').value = p?p.c:'Aretes'; $('#ad_mPrice').value = p?p.p:'';
   $('#ad_mStock').value = p?p.k:1; $('#ad_mImg').value = p?p.i:'';
-  $('#ad_mBadge').value = p?(p.b||''):''; $('#ad_mSale').value = p&&p.sale?'1':'0';
+  $('#ad_mLinea').value = (p && isImport(p)) ? 'import' : 'accesorios';
+  $('#ad_mBadge').value = p&&p.b&&p.b!=='import'?p.b:''; $('#ad_mSale').value = p&&p.sale?'1':'0';
   $('#ad_mColors').value = p && Array.isArray(p.colores) ? p.colores.join(', ') : '';
   showImgPreview(p && p.i ? imgUrl(p.i,200) : null);
   $('#ad_ovProd').classList.add('on');
@@ -3031,7 +3063,9 @@ $('#ad_mSave').onclick = async ()=>{
   const p = {
     s: sku, c: cat, n: nombre, p: precio, i: img,
     k: Math.max(0, +$('#ad_mStock').value||0),
-    b: $('#ad_mBadge').value, m: prev?prev.m:['Dorado'], o: prev?prev.o:['Diario'], mm: prev?prev.mm:null,
+    b: $('#ad_mLinea').value==='import' ? 'import' : $('#ad_mBadge').value,
+    linea: $('#ad_mLinea').value==='import' ? 'import' : 'accesorios',
+    m: prev?prev.m:['Dorado'], o: prev?prev.o:['Diario'], mm: prev?prev.mm:null,
     oculto: prev?!!prev.oculto:false
   };
   if($('#ad_mSale').value==='1') p.sale = 1;
