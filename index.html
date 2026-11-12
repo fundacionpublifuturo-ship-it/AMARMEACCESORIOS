@@ -842,6 +842,15 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 #adminOverlay .empty{text-align:center;padding:50px;color:var(--ink-2)}
 #adminOverlay .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 #adminOverlay .panel{background:#fff;border:1px solid var(--line);border-radius:3px;padding:22px}
+#adminOverlay .ad-catimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:16px;margin-top:8px}
+#adminOverlay .ad-cat{text-align:center}
+#adminOverlay .ad-cat .ring{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 8px;background:#F3EBDF;border:2px solid var(--line);position:relative}
+#adminOverlay .ad-cat .ring img{width:100%;height:100%;object-fit:cover}
+#adminOverlay .ad-cat .ring .auto{position:absolute;bottom:0;left:0;right:0;background:rgba(74,56,36,.8);color:#fff;font-size:9px;padding:2px;letter-spacing:.05em}
+#adminOverlay .ad-cat b{display:block;font-size:12.5px;margin-bottom:6px}
+#adminOverlay .ad-cat .mini{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+#adminOverlay .ad-cat .mini button{font-size:10.5px;padding:4px 8px;border:1px solid var(--line);background:#fff;border-radius:3px;cursor:pointer;color:var(--ink)}
+#adminOverlay .ad-cat .mini button:hover{background:var(--cafe);color:#fff;border-color:var(--cafe)}
 #adminOverlay .panel h3{font-size:19px;margin-bottom:4px}
 #adminOverlay .panel p.sub{font-size:13px;color:var(--ink-2);margin:0 0 16px}
 #adminOverlay .rank{list-style:none;padding:0;margin:0}
@@ -995,6 +1004,20 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
 
 
 <!-- ============ CATALOGO (movido arriba) ============ -->
+<!-- ============ CATEGORÍAS ============ -->
+<section class="sec sec-dark" id="colecciones">
+  <div class="wrap">
+    <div class="sec-head center" style="margin:0 auto">
+      <span class="eyebrow">Colecciones</span>
+      <h2 style="margin-top:14px">Elige tu estilo</h2>
+      <hr class="hr-gold">
+      <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
+    </div>
+    <div class="cat-row rv" id="catRow"></div>
+  </div>
+</section>
+
+
 <!-- ============ CATÁLOGO ============ -->
 <section class="sec sec-cream" id="catalogo">
   <div class="wrap">
@@ -1104,19 +1127,6 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
     </div>
     <div class="rail rv imp-rail" id="importadosRail" style="margin-top:8px"></div>
     <div style="margin-top:26px"><button class="btn imp-btn" id="verTodosImportados">Ver todos los importados</button></div>
-  </div>
-</section>
-
-<!-- ============ CATEGORÍAS ============ -->
-<section class="sec sec-dark" id="colecciones">
-  <div class="wrap">
-    <div class="sec-head center" style="margin:0 auto">
-      <span class="eyebrow">Colecciones</span>
-      <h2 style="margin-top:14px">Elige tu estilo</h2>
-      <hr class="hr-gold">
-      <p>Cada colección está pensada para un momento distinto: del uso diario a la noche que quieres recordar.</p>
-    </div>
-    <div class="cat-row rv" id="catRow"></div>
   </div>
 </section>
 
@@ -1537,6 +1547,11 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
           <div class="f"><label>Clave anon (public)</label><input id="ad_cfgKey" placeholder="eyJhbGciOi..."></div>
           <button class="btn btn-dark" id="ad_cfgSave">Guardar conexión</button>
           <p style="font-size:12.5px;color:var(--ink-2);margin-top:14px">Con Supabase el login usa autenticación real (contraseñas con hash en el servidor) y el stock se sincroniza entre todos los dispositivos. Instrucciones y SQL en el README.</p>
+        </div>
+        <div class="panel" style="grid-column:1/-1">
+          <h3>Imágenes de las categorías</h3>
+          <p class="sub">Estas son las fotos redondas que aparecen arriba en el sitio. Por defecto usan una foto de un producto disponible de cada categoría. Puedes fijar una foto específica subiéndola; si la dejas automática, se actualiza sola cuando se agotan productos.</p>
+          <div id="ad_catImgs" class="ad-catimgs"></div>
         </div>
         <div class="panel">
           <h3>Respaldo y restauración</h3>
@@ -2326,14 +2341,27 @@ async function finishQuote(num, send){
    SECCIONES DINÁMICAS
    ============================================================ */
 function topOf(cat,n=1){ return PRODUCTS.filter(p=>p.c===cat).slice(0,n); }
+// imágenes personalizadas de categoría (admin); se guardan en localStorage y Supabase
+let catImgs = {};
+try{ catImgs = JSON.parse(localStorage.getItem('amarme_catimgs')||'{}'); }catch(e){ catImgs={}; }
+// Devuelve la imagen a mostrar en el círculo de una categoría:
+// 1) la personalizada del admin, si existe; 2) un producto disponible (no agotado ni oculto); 3) cualquiera
+function catImage(cat){
+  if(catImgs[cat]) return catImgs[cat];
+  const disp = PRODUCTS.find(p=>p.c===cat && !p.oculto && !isOut(p) && p.i);
+  if(disp) return disp.i;
+  const any = PRODUCTS.find(p=>p.c===cat && p.i);
+  return any ? any.i : '';
+}
 function initSections(){
   $('#heroSku').textContent = '+' + PRODUCTS.length; $('#stSku').textContent = PRODUCTS.length;
 
   // categorías (Pet Lovers va en su propia sección)
   const order = CAT_ORDER.filter(c=>c!==PET);
   $('#catRow').innerHTML = order.filter(c=>CATS.includes(c)).map(c=>{
-    const p = topOf(c,1)[0], n = PRODUCTS.filter(x=>x.c===c).length;
-    return `<div class="cat-c" data-gocat="${c}"><div class="cat-ring">${pic(p,400)}</div>
+    const img = catImage(c);
+    const n = PRODUCTS.filter(x=>x.c===c && !x.oculto && !isOut(x)).length;
+    return `<div class="cat-c" data-gocat="${c}"><div class="cat-ring"><img src="${imgUrl(img,400)}" data-id="${img}" data-w="400" onerror="imgFail(this)" referrerpolicy="no-referrer" loading="lazy" alt="${esc(c)}"></div>
       <h4>${c}</h4><small>${n} piezas</small></div>`;
   }).join('');
 
@@ -2753,6 +2781,68 @@ $('#ad_lgForm').addEventListener('submit', async e=>{
 });
 $('#ad_logout').onclick = ()=>{ sessionStorage.removeItem('amarme_tk'); sessionStorage.removeItem('amarme_user'); location.reload(); };
 
+// ===== Imágenes de categorías (admin) =====
+function renderCatImgs(){
+  const box = $('#ad_catImgs'); if(!box) return;
+  const cats = CAT_ORDER.filter(c=>PRODUCTS.some(p=>p.c===c));
+  box.innerHTML = cats.map(c=>{
+    const custom = catImgs[c];
+    const shown = custom || (PRODUCTS.find(p=>p.c===c && !p.oculto && !isOut(p) && p.i)||{}).i || (PRODUCTS.find(p=>p.c===c && p.i)||{}).i || '';
+    return `<div class="ad-cat" data-cat="${c}">
+      <div class="ring"><img src="${imgUrl(shown,200)}" referrerpolicy="no-referrer" onerror="this.style.opacity=0">
+        ${custom?'':'<span class="auto">Automática</span>'}</div>
+      <b>${c}</b>
+      <div class="mini">
+        <button data-act="change" data-cat="${c}">Cambiar foto</button>
+        ${custom?`<button data-act="auto" data-cat="${c}">Automática</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+// input oculto para subir foto de categoría
+(function(){
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='image/*'; inp.style.display='none';
+  inp.id='ad_catImgFile'; document.body.appendChild(inp);
+})();
+let _catImgTarget = null;
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#adminOverlay')) return;
+  const btn = e.target.closest('.ad-cat .mini button'); if(!btn) return;
+  const cat = btn.dataset.cat, act = btn.dataset.act;
+  if(act==='auto'){ delete catImgs[cat]; persistCatImgs(); renderCatImgs(); initSections(); toast('Foto de '+cat+' en automática'); }
+  if(act==='change'){ _catImgTarget = cat; $('#ad_catImgFile').click(); }
+});
+function compressCatImg(file){
+  return new Promise((res,rej)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{ const img=new Image();
+      img.onload=()=>{ const max=600, sc=Math.min(1,max/Math.max(img.width,img.height));
+        const cv=document.createElement('canvas'); cv.width=Math.round(img.width*sc); cv.height=Math.round(img.height*sc);
+        cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height); res(cv.toDataURL('image/jpeg',0.82)); };
+      img.onerror=rej; img.src=reader.result; };
+    reader.onerror=rej; reader.readAsDataURL(file);
+  });
+}
+document.addEventListener('change', async e=>{
+  if(e.target.id!=='ad_catImgFile' || !_catImgTarget) return;
+  const file = e.target.files[0]; if(!file) return;
+  if(!file.type.startsWith('image/')){ toast('Selecciona una imagen'); return; }
+  const cat = _catImgTarget; _catImgTarget=null; e.target.value='';
+  toast('Procesando foto…');
+  try{
+    const dataUrl = await compressCatImg(file);
+    let stored = dataUrl;
+    if(isCloud() && typeof subirFotoStorage==='function'){
+      try{ const up = await subirFotoStorage(dataUrl, 'cat-'+norm(cat).replace(/[^a-z0-9]+/g,'-')); if(up) stored = up; }catch(e){}
+    }
+    catImgs[cat] = stored; persistCatImgs(); renderCatImgs(); initSections(); toast('Foto de '+cat+' actualizada');
+  }catch(err){ toast('No se pudo procesar la foto'); }
+});
+function persistCatImgs(){
+  try{ localStorage.setItem('amarme_catimgs', JSON.stringify(catImgs)); }catch(e){}
+}
+
 function start(user){
   $('#ad_login').style.display='none';
   $('#ad_app').style.display='block';
@@ -2764,6 +2854,7 @@ function start(user){
   const cats = CAT_ORDER;
   $('#ad_fCat').innerHTML = '<option value="">Todas las categorías</option>'+cats.map(c=>`<option>${c}</option>`).join('');
   $('#ad_mCat').innerHTML = cats.map(c=>`<option>${c}</option>`).join('');
+  renderCatImgs();
   loadInv();
   loadSales();
 }
