@@ -152,7 +152,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:500;line-height:1.12;margi
 #mMenu nav a:active{color:var(--gold)}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:62svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h);padding-bottom:28px}
+.hero{position:relative;min-height:48svh;display:flex;align-items:center;background:linear-gradient(158deg,#FBF3E6 0%,#F1E7D5 50%,#E5D6BF 100%);overflow:hidden;padding-top:var(--nav-h);padding-bottom:24px}
 .hero::before{content:'';position:absolute;width:900px;height:900px;right:-260px;top:-160px;background:radial-gradient(circle,rgba(223,199,154,.28),transparent 60%);pointer-events:none}
 .hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
 /*hero café*/
@@ -668,8 +668,9 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   .card-name{font-size:13.5px;min-height:36px}
   .card-price{font-size:16px}
   .card-cta button{padding:11px;font-size:10px}
-  .hero{min-height:auto;padding-bottom:40px}
-  .hero-grid{padding:34px 20px 24px;gap:22px;grid-template-columns:1fr}
+  .hero{min-height:auto;padding-bottom:28px}
+  .hero-grid{padding:28px 20px 18px;gap:22px;grid-template-columns:1fr}
+  .hero-visual{display:none}
   .hero h1{font-size:clamp(38px,11vw,54px);line-height:1.12}
   .hero p.lead{font-size:15.5px;margin:18px 0 26px}
   .hero-cta{gap:10px}
@@ -997,17 +998,6 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
   </div>
 </section>
 
-<!-- ============ TRUST ============ -->
-<section class="trust">
-  <div class="trust-grid">
-    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></svg><h4>Envíos a toda Colombia</h4><p>Despacho en 24h hábiles y entrega en Ibagué el mismo día.</p></div>
-    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.5H21l-5.3 4 2 6.5-5.7-4-5.7 4 2-6.5-5.3-4h6.6z"/></svg><h4>Diseño exclusivo</h4><p>Colecciones limitadas: pocas unidades por referencia.</p></div>
-    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M20 7H4v13h16zM4 7l2-4h12l2 4M12 7v13M9 12h6"/></svg><h4>Empaque premium</h4><p>Cada pieza llega lista para regalar en empaque de marca.</p></div>
-    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg><h4>Garantía de material</h4><p>Baño en oro y acero de calidad. Cambios dentro de 5 días.</p></div>
-  </div>
-</section>
-
-
 <!-- ============ CATALOGO (movido arriba) ============ -->
 <!-- ============ CATEGORÍAS ============ -->
 <section class="sec sec-dark" id="colecciones">
@@ -1025,6 +1015,18 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
     </div>
   </div>
 </section>
+
+
+<!-- ============ TRUST ============ -->
+<section class="trust">
+  <div class="trust-grid">
+    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></svg><h4>Envíos a toda Colombia</h4><p>Despacho en 24h hábiles y entrega en Ibagué el mismo día.</p></div>
+    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.5H21l-5.3 4 2 6.5-5.7-4-5.7 4 2-6.5-5.3-4h6.6z"/></svg><h4>Diseño exclusivo</h4><p>Colecciones limitadas: pocas unidades por referencia.</p></div>
+    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M20 7H4v13h16zM4 7l2-4h12l2 4M12 7v13M9 12h6"/></svg><h4>Empaque premium</h4><p>Cada pieza llega lista para regalar en empaque de marca.</p></div>
+    <div class="trust-item rv"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg><h4>Garantía de material</h4><p>Baño en oro y acero de calidad. Cambios dentro de 5 días.</p></div>
+  </div>
+</section>
+
 
 
 <!-- ============ CATÁLOGO ============ -->
@@ -1514,6 +1516,14 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
       <div class="panel" style="margin-bottom:20px">
         <h3>Carga masiva desde CSV</h3>
         <p class="sub">Mismo formato del archivo maestro de Drive. El SKU es la llave: si ya existe se actualiza, si no existe se crea con <b>stock = 1</b>.</p>
+        <div class="f" style="max-width:360px;margin-bottom:16px">
+          <label>¿A qué línea pertenece esta carga?</label>
+          <select id="ad_csvLinea">
+            <option value="accesorios">AMARME Accesorios</option>
+            <option value="import">AMARME Importados</option>
+          </select>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink-2);margin:-6px 0 14px">Todos los productos del archivo se cargarán en esa línea. Las categorías del CSV que aún no existan se crean solas.</p>
         <div class="drop" id="ad_drop">
           <p style="margin:0 0 14px;color:var(--ink-2)">Arrastra el archivo .csv aquí o selecciónalo</p>
           <input type="file" id="ad_csvFile" style="display:none">
@@ -1604,7 +1614,10 @@ footer h5{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var
     <div class="f"><label>Nombre del producto *</label><input id="ad_mName" placeholder="Ej: Collar Corazón Baño en Oro"></div>
     <div class="two">
       <div class="f"><label>Precio (COP) *</label><input id="ad_mPrice" type="number" inputmode="numeric" min="0" step="1000" placeholder="35000"></div>
-      <div class="f"><label>Categoría</label><select id="ad_mCat"></select></div>
+      <div class="f"><label>Categoría</label>
+        <select id="ad_mCat"></select>
+        <input id="ad_mCatNew" placeholder="Nombre de la nueva categoría" style="display:none;margin-top:8px">
+      </div>
     </div>
     <div class="f"><label>Línea</label><select id="ad_mLinea">
       <option value="accesorios">AMARME Accesorios</option>
@@ -2371,8 +2384,9 @@ function catImage(cat, imp){
 function initSections(){
   $('#heroSku').textContent = '+' + PRODUCTS.length; $('#stSku').textContent = PRODUCTS.length;
 
-  // categorías (Pet Lovers va en su propia sección)
-  const order = CAT_ORDER.filter(c=>c!==PET);
+  // categorías (Pet Lovers va en su propia sección) + categorías nuevas creadas en el admin
+  const extraCats = [...new Set(PRODUCTS.map(p=>p.c))].filter(c=>c && c!==PET && !CAT_ORDER.includes(c));
+  const order = CAT_ORDER.filter(c=>c!==PET).concat(extraCats);
   // Fila 1: accesorios (categorías con productos NO importados)
   const catsAcc = order.filter(c=>CATS.includes(c) && PRODUCTS.some(p=>p.c===c && !isImport(p) && !p.oculto && !isOut(p)));
   $('#catRow').innerHTML = catsAcc.map(c=>{
@@ -2812,6 +2826,26 @@ $('#ad_lgForm').addEventListener('submit', async e=>{
 });
 $('#ad_logout').onclick = ()=>{ sessionStorage.removeItem('amarme_tk'); sessionStorage.removeItem('amarme_user'); location.reload(); };
 
+// ===== Categorías (admin): lista fija + las creadas en productos =====
+function allCats(){
+  const base = CAT_ORDER.slice();
+  const extra = [...new Set((ITEMS||[]).map(p=>p.c))].filter(c=>c && !base.includes(c));
+  return base.concat(extra);
+}
+function fillCatSelects(){
+  const cats = allCats();
+  if($('#ad_fCat')) $('#ad_fCat').innerHTML = '<option value="">Todas las categorías</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');
+  if($('#ad_mCat')) $('#ad_mCat').innerHTML = cats.map(c=>`<option>${esc(c)}</option>`).join('') + '<option value="__new__">+ Crear nueva categoría…</option>';
+}
+// mostrar/ocultar el campo de nueva categoría
+document.addEventListener('change', e=>{
+  if(e.target.id==='ad_mCat'){
+    const nw = $('#ad_mCatNew');
+    if(e.target.value==='__new__'){ nw.style.display='block'; nw.focus(); }
+    else { nw.style.display='none'; nw.value=''; }
+  }
+});
+
 // ===== Imágenes de categorías (admin) =====
 function renderCatImgs(){
   const box = $('#ad_catImgs'); if(!box) return;
@@ -2882,9 +2916,7 @@ function start(user){
   $('#ad_modeTag').classList.toggle('cloud', isCloud());
   $('#ad_cfgMode').textContent = isCloud()?'Conectado a Supabase':'Local (este navegador)';
   $('#ad_cfgUrl').value = SB.url; $('#ad_cfgKey').value = SB.key;
-  const cats = CAT_ORDER;
-  $('#ad_fCat').innerHTML = '<option value="">Todas las categorías</option>'+cats.map(c=>`<option>${c}</option>`).join('');
-  $('#ad_mCat').innerHTML = cats.map(c=>`<option>${c}</option>`).join('');
+  fillCatSelects();
   renderCatImgs();
   loadInv();
   loadSales();
@@ -2989,6 +3021,8 @@ function openProd(p){
   pendingImg = null;
   $('#ad_mTitle').textContent = p ? 'Editar producto' : 'Nuevo producto';
   $('#ad_mName').value = p?p.n:''; $('#ad_mSku').value = p?p.s:nextSku('Aretes');
+  fillCatSelects();
+  $('#ad_mCatNew').style.display='none'; $('#ad_mCatNew').value='';
   $('#ad_mCat').value = p?p.c:'Aretes'; $('#ad_mPrice').value = p?p.p:'';
   $('#ad_mStock').value = p?p.k:1; $('#ad_mImg').value = p?p.i:'';
   $('#ad_mLinea').value = (p && isImport(p)) ? 'import' : 'accesorios';
@@ -3043,7 +3077,11 @@ $('#ad_ovProd').onclick = e=>{ if(e.target.id==='ovProd') $('#ad_ovProd').classL
 $('#ad_mSave').onclick = async ()=>{
   const nombre = $('#ad_mName').value.trim();
   const precio = +$('#ad_mPrice').value||0;
-  const cat = $('#ad_mCat').value;
+  let cat = $('#ad_mCat').value;
+  if(cat==='__new__'){
+    cat = $('#ad_mCatNew').value.trim();
+    if(!cat){ toast('Escribe el nombre de la nueva categoría'); return; }
+  }
   let sku = $('#ad_mSku').value.trim() || (editing || nextSku(cat));
   const manualId = $('#ad_mImg').value.trim();
   let img = manualId ? (manualId.match(/[-\w]{25,}/)||[manualId])[0] : (pendingImg || (editing ? (ITEMS.find(x=>x.s===editing)||{}).i : ''));
@@ -3073,6 +3111,7 @@ $('#ad_mSave').onclick = async ()=>{
   if(colsRaw) p.colores = colsRaw.split(',').map(x=>x.trim()).filter(Boolean);
   await DB.upsert(p);
   ITEMS = await DB.products();
+  fillCatSelects();
   $('#ad_ovProd').classList.remove('on'); renderInv();
   btn.disabled=false; btn.textContent=lbl;
   toast(prev?'Producto actualizado':'Producto creado');
@@ -3194,9 +3233,15 @@ function handleCSV(text){
     (ITEMS.some(x=>x.s===sku) ? upd : nuevos).push(p);
   });
   pending = {nuevos, upd};
+  // categorías nuevas que traerá el archivo (no existen aún)
+  const existentes = new Set(ITEMS.map(x=>x.c));
+  const catsNuevas = [...new Set([...nuevos,...upd].map(p=>p.c))].filter(c=>c && !existentes.has(c));
+  const lineaSel = $('#ad_csvLinea') ? ($('#ad_csvLinea').value==='import'?'AMARME Importados':'AMARME Accesorios') : '';
   $('#ad_impSum').innerHTML = `
+    <div class="sumrow"><span>Línea de esta carga</span><b style="color:${$('#ad_csvLinea')&&$('#ad_csvLinea').value==='import'?'#C8102E':'var(--cafe)'}">${lineaSel}</b></div>
     <div class="sumrow"><span>Productos nuevos (se crean con stock 1)</span><b style="color:var(--ok)">${nuevos.length}</b></div>
     <div class="sumrow"><span>Ya existentes (se actualizan nombre, precio, imagen y etiqueta)</span><b>${upd.length}</b></div>
+    ${catsNuevas.length?`<div class="sumrow"><span>Categorías nuevas que se crearán</span><b style="color:var(--ok)">${catsNuevas.length}</b></div><div style="font-size:12px;color:var(--ink-2);margin:4px 0 2px">${catsNuevas.map(esc).join(' · ')}</div>`:''}
     <div class="sumrow"><span>Filas con error (se omiten)</span><b style="color:var(--terra)">${errs.length}</b></div>
     <div class="sumrow"><span>Total en el catálogo después de la carga</span><b>${ITEMS.length + nuevos.length}</b></div>`;
   $('#ad_impErrs').innerHTML = errs.length
@@ -3215,6 +3260,12 @@ drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(!f) retur
 $('#ad_impCancel').onclick = ()=>{ pending=null; $('#ad_impPreview').style.display='none'; };
 $('#ad_impGo').onclick = async ()=>{
   if(!pending) return;
+  // aplicar la línea elegida (accesorios o importados) a todos los de la carga
+  const linea = $('#ad_csvLinea') ? $('#ad_csvLinea').value : 'accesorios';
+  [...pending.nuevos, ...pending.upd].forEach(p=>{
+    if(linea==='import'){ p.linea='import'; if(p.b!=='nuevo'&&p.b!=='top') p.b='import'; }
+    else { p.linea='accesorios'; if(p.b==='import') p.b=''; }
+  });
   $('#ad_impGo').disabled = true; $('#ad_impGo').textContent='Cargando…';
   if(isCloud()){
     for(const p of [...pending.nuevos, ...pending.upd]) await DB.upsert(p);
